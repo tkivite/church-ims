@@ -1,0 +1,490 @@
+  $(document).ready(function() {
+
+$('.loaddata').on('click', function(e) {
+    e.preventDefault();
+
+   var link = $(this).closest("a");
+   var linkref = link.attr("href").substring(4);;
+   alert(linkref);
+
+    $.ajax({
+        type: 'get',
+        url: 'Shared/php/resolve1.php',
+        data: 'id=' +linkref,
+        success: function(result) {
+            
+            getContents(result,linkref);
+        },
+        complete: function() {
+              $('#loadingAdd').hide();
+        }
+    });
+   return false;
+
+
+});
+
+$(".mymenutabs").click(function() {
+
+  $(".content-header").empty();
+  $(".content").fadeOut('slow');
+  $(".content").empty()
+
+});
+
+/*$(".mymenutabs").click(function() {
+
+  //var tab = $(this).closest('tr').prev();
+  var link = $(this).closest("a");
+  var linkref = link.attr("href").substring(1);;
+  alert(linkref); 
+
+    $.ajax({
+        type: 'get',
+        url: 'Shared/php/resolve1.php',
+        data: 'id=999' ,
+        success: function(result) {
+            //$('#gridform').show();
+           // $('#gridform').html(result);
+
+        },
+        complete: function() {
+              $('#loadingAdd').hide();
+        }
+    });
+   return false;
+  
+
+
+});
+
+*/
+ $(':checkbox[name="primarykey[]"],:checkbox[name="permission[]"]').change(function()
+                {
+                   
+
+
+
+               if ($(this).attr("value") == "all")
+                    {
+                        checked = ($(this).attr('checked') == 'checked') ? 'true' : false;
+                        if (checked)
+                        {
+                            $('#addElements').hide();
+                            $('#approval').fadeIn(500);
+                           
+                        }
+                        else
+                        {
+                           
+                            $('#approval').hide();
+                            $('#addElements').fadeIn(400);
+                        }
+                        $(':checkbox[name="primarykey[]"],:checkbox[name="permission[]"]').each(function() {
+                            if ($(this).attr('disabled') != "disabled") {
+                                $(this).attr('checked', checked)
+                            }
+                            ;
+                        });
+
+                    }
+
+                else
+                    {
+                        /*var cb = $(':checkbox[name="primarykey[]"]');
+                         if(cb.attr("value")=="all" && cb.is(":checked")==true)
+                         {
+                         checked = ($(this).attr('checked') == 'checked') ? 'true' : false;
+                         if(!checked)							
+                         }
+                         checked = ($(this).attr('checked') == 'checked') ? 'true' : false;*/
+                        var checked = $('[name="primarykey[]"]:checked').length;
+                        if (checked > 0)
+                        {
+                           
+                            $('#addElements').hide();
+                            $('#approval').fadeIn(500);
+                        }
+                        else
+                        {
+                         
+                            $('#approval').hide();
+                            $('#addElements').fadeIn(400);
+                        }
+                        //$('[name="primarykey[]"]:checked').length;
+                    }
+             });
+
+
+ $('[name="approve"],[name="reject"]').click(function() {
+			
+                    //Validate that required fields are nt left blank
+                    var ret = true;
+                    var Status = '';
+                    var form = $(this).closest("form");
+                    var formName = form.attr("name");
+                    $('[name="' + formName + '"] .required').each(function(i, obj) {
+                        if ($(this).val() == "")
+                        {
+                            $(this).attr("style", "border: 1px inset rgb(251, 58, 58);");
+                            $(this).attr("placeholder", "Please enter comments here");
+                            ret = false;
+                            return ret;
+                        }
+                        else
+                        {
+                            $(this).attr("style", "border: 1px inset rgb(89, 189, 69);");
+                            $(this).attr("placeholder", "Please complete");
+                            ret = true;
+                            return ret;
+                        }
+                    });
+                    if (ret == false) {
+                        return false;
+                    }
+                    if ($(this).attr('name') == "approve")
+                    {			
+                        Status = "APPROVED";
+                        var confirmItems = confirm("Are you sure you want to " + $(this).val() + "?");
+                        if (confirmItems) //Accept approval
+                        {
+			    $('#action2').val('1');
+                            ret = true;
+                        }
+                        else //Cancel Approval
+                        {
+                            ret = false;
+                        }
+                    }
+                    else if ($(this).attr('name') == "reject")
+                    {
+                        Status = "REJECTED";
+                        var rejectItems = confirm("Are you sure you want to " + $(this).val() + "?");
+                        if (rejectItems) //Accept approval
+                        {
+			     $('#action2').val('3');			     
+                            ret = true;
+                        }
+                        else //Cancel Approval
+                        {
+                            ret = false;
+                        }
+                    } else if($(this).attr('name') == 'resubmit') {
+                        var confirmItems =  confirm("Are you sure you want to resubmit the selected transactions?");
+                        if (confirmItems) //Accept approval
+                        {
+                            ret = true;
+                        }
+                        else //Cancel Approval
+                        {
+                            ret = false;
+                        }
+                    }
+                    if (ret == false) //Hault script execution if check above returns false
+                        return ret;
+
+
+                    var form = $(this).closest("form");
+                    var formname = form.attr("name");
+                    /* Get selected values for checkboxes */
+                    var allVals = [];
+                    $('[name="primarykey[]"]:checked').each(function() {
+                        allVals.push($(this).attr("value"));
+                    });
+                    $.blockUI({css: {
+                            border: 'none',
+                            padding: '15px',
+                            backgroundColor: '#000',
+                            '-webkit-border-radius': '10px',
+                            '-moz-border-radius': '10px',
+                            opacity: .5,
+                            color: '#fff'
+                        }});
+                    $.ajax({
+                        type: 'post',
+                        url: 'Shared/php/process_form.php?f=' + formname,
+                        data: "primarykey=" + allVals + "&action=confirm&status=" + Status + '&' + form.serialize(),
+                        success: function(result) {
+
+                        },
+                        complete: function(result) {
+                            /* if ($(".morepages").size())
+                             {
+                             $.ajax({
+                             url: "inc/setvalue?notes=Please note you have other payments pending approval",
+                             complete: function() {
+                             location.reload();
+                             }
+                             });
+                             } else {*/
+                            location.reload();
+                            //}
+                        }
+                    });
+                    return false;
+                });
+            
+
+
+      
+            $('#dataTables-example').DataTable({
+                responsive: true
+            });
+      $('#dataTables-example_filter').appendTo($('#filterDiv1'));
+      $('#dataTables-example_length').appendTo($('#pageSizeDiv'));
+
+     // <div class="dataTables_length" id="dataTables-example_length"><label>Show <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div>
+
+    //  <div id="dataTables-example_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="dataTables-example"></label></div>
+
+     /* var notes = '<?php echo $_SESSION[notes]; ?>';
+      if (notes != '')
+      {
+          $.growlUI('Closed Loop Notification', '' + notes);
+      }*/
+
+      $(function() {
+          $( "#min" ).datepicker();
+      });
+
+      $(function() {
+          $( "#max" ).datepicker();
+      });
+
+      var oTable=$('#dataTables-example').dataTable();
+
+      /* Add event listeners to the two date-range filtering inputs */
+
+      $('#min').change( function() { oTable.fnDraw(); } );
+      $('#max').change( function() { oTable.fnDraw(); } );
+
+
+
+      $('#dataTables-example tbody').on('click', 'td.details-control', function () {
+
+      var table = $('#dataTables-example').DataTable();
+      var tr = $(this).closest('tr');
+      var row = table.row( tr );
+      var d =  tr.attr("title");
+      var subid ="view";
+
+      if ( row.child.isShown() ) {
+
+
+          $('div.slider', row.child()).slideUp( function () {
+             // alert("yes");
+              row.child.hide();
+              tr.removeClass('shown');
+          } );
+      }
+      else {
+
+          //
+
+          $.ajax({
+              type: 'get',
+              url: '../../nicsasa/Shared/php/resolve.php',
+              data: 'key=' + d + '&sid=' + subid + '&id=' + $('#page_id').val(),
+              success: function (result) {
+
+                  displayRowDetails(result,tr,row);
+              },
+              complete: function () {
+
+              }
+          });
+      }
+
+      } );
+
+
+ $(".addButton").click(function() {
+          var btnValue = $(this).attr("value"),
+              buttonMode = $(this).attr("mode");
+          // alert(buttonMode);
+         var table = $('#dataTables-example').DataTable();
+         var tr = $(this).closest('tr').prev();
+         var row = table.row( tr );
+
+
+         if ( row.child.isShown() ) {
+
+
+             $('div.slider', row.child()).slideUp( function () {
+                 // alert("yes");
+                 row.child.hide();
+                 tr.removeClass('shown');
+             } );
+         }
+
+
+     if (btnValue == 'Add New MSISDN' || btnValue == 'Add B2C Setting' || btnValue == 'Allocate Funds')
+          {
+              addEvent('1');//Single payment upload
+          }
+
+
+          else if (
+              buttonMode == 'Donor Upload'
+              || buttonMode == 'Program Upload'
+              || buttonMode == 'Organisation Upload'
+              || buttonMode == 'Beneficiary Upload'
+              || buttonMode == 'Service Provider Upload'
+              || buttonMode == 'Upload Allocation File'
+              || buttonMode == 'Program Fund Allocation'
+          )
+          {
+              addEvent('2');
+          }
+          else {
+              addEvent(0);
+          }
+
+      });
+
+
+  });
+
+  function addEvent(mode)
+  {
+      $('#dataTable_wrapper').fadeOut();
+      // $('#loadingAdd').show();
+      $('.addButton').fadeOut();
+      $('#addElements').fadeOut();
+      $('.btn-group').fadeOut();
+      $('#listHeading').fadeOut();
+      //$('#filterGrid').fadeOut();
+
+      $.ajax({
+          type: 'get',
+          url: 'Shared/php/resolve.php',
+          data: 'sid=' + $('#sub_page').val() + '&id=' + $('#page_id').val() + '&mode=' + mode,
+          success: function(result) {
+              $('#gridform').show();
+              $('#gridform').html(result);
+          },
+          complete: function() {
+              $('#loadingAdd').hide();
+          }
+      });
+  }
+
+
+  function editEvent2(cell)
+  {
+      $('#dataTable_wrapper').fadeOut();
+      // $('#loadingAdd').show();
+      $('.addButton').fadeOut();
+      $('#addElements').fadeOut();
+      $('.btn-group').fadeOut();
+
+      $('#listHeading').fadeOut();
+      //$('#filterGrid').fadeOut();
+
+      $.ajax({
+          type: 'get',
+          url: 'Shared/php/resolve.php',
+          data: 'sid=' + $('#sub_page').val() + '&id=' + $('#page_id').val() + '&cell=' + cell,
+          success: function(result) {
+              $('#gridform').show();
+              $('#gridform').html(result);
+          },
+          complete: function() {
+              $('#loadingAdd').hide();
+          }
+      });
+
+      return false;
+  }
+
+  function displayRowDetails(result,tr,row)
+  {
+      var returnVal = '<div id = "slider" class="slider">'+result+'</div>';
+      row.child( returnVal ).show();
+      tr.addClass('shown');
+
+      $('div.slider', row.child()).slideDown();
+
+
+  }
+
+
+  $.fn.dataTableExt.afnFiltering.push(
+      function( oSettings, aData, iDataIndex ) {
+
+          var today = new Date();
+          var dd = today.getDate();
+          var mm = today.getMonth() + 1;
+          var yyyy = today.getFullYear();
+
+          if (dd<10)
+              dd = '0'+dd;
+
+          if (mm<10)
+              mm = '0'+mm;
+
+        //  today = mm+'/'+dd+'/'+yyyy;
+          today = dd+'-'+mm+'-'+yyyy;
+
+          if ($('#min').val() != '' || $('#max').val() != '') {
+              var iMin_temp = $('#min').val();
+              if (iMin_temp == '') {
+                  iMin_temp = '01-01-1980';
+              }
+
+              var iMax_temp = $('#max').val();
+              if (iMax_temp == '') {
+                  iMax_temp = today;
+              }
+
+              var arr_min = iMin_temp.split("-");
+              var arr_max = iMax_temp.split("-");
+              var arr_date = aData[2].split("-");
+
+              var iMin = new Date(arr_min[2], arr_min[0], arr_min[1], 0, 0, 0, 0)
+              var iMax = new Date(arr_max[2], arr_max[0], arr_max[1], 0, 0, 0, 0)
+              var iDate = new Date(arr_date[2], arr_date[0], arr_date[1], 0, 0, 0, 0)
+
+              if ( iMin == "" && iMax == "" )
+              {
+                  return true;
+              }
+              else if ( iMin == "" && iDate < iMax )
+              {
+                  return true;
+              }
+              else if ( iMin <= iDate && "" == iMax )
+              {
+                  return true;
+              }
+              else if ( iMin <= iDate && iDate <= iMax )
+              {
+                  return true;
+              }
+              return false;
+          }
+      }
+  );
+
+function getContents(theUrl,linkref)
+{  console.log("fetching: "+theUrl);
+    $(".content-header").remove();
+    $(".content").fadeOut('slow');
+     $(".content").remove();
+   $.ajax({
+        type: 'get',
+        url: theUrl,
+        data: 'id=' +linkref,
+        success: function(result) { 
+            console.log("got results: "+result);           
+            $(".content-wrapper").append(result);
+            $(".content").fadeIn('slow');
+        },
+        complete: function() {
+              $('#loadingAdd').hide();
+        }
+    });
+   return false;
+}
+
+               

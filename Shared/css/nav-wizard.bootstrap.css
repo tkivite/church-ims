@@ -1,0 +1,128 @@
+/*
+.nav-pills.nav-wizard {
+ height: 30px;
+}
+*/
+.nav-pills.nav-wizard > li {
+  position: relative;
+  overflow: visible;
+  border-right: 15px solid transparent;
+  border-left: 15px solid transparent;
+}
+.nav-pills.nav-wizard > li + li {
+  margin-left:0;
+}
+.nav-pills.nav-wizard > li:first-child {
+  border-left: 0;
+}
+.nav-pills.nav-wizard > li:first-child a {
+  border-radius: 5px 0 0 5px;
+}
+.nav-pills.nav-wizard > li:last-child {
+  border-right: 0;
+}
+.nav-pills.nav-wizard > li:last-child a {
+  border-radius: 0 5px 5px 0;
+}
+.nav-pills.nav-wizard > li a {
+  border-radius: 0;
+  background-color: #00acd6 !important;
+}
+.nav-pills.nav-wizard > li .nav-arrow {
+  position: absolute;
+  top: 0px;
+  right: -20px;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 20px 0 20px 20px;
+  border-color: transparent transparent transparent #00acd6 !important;
+  z-index: 150;
+}
+.nav-pills.nav-wizard > li .nav-wedge {
+  position: absolute;
+  top: 0px;
+  left: -20px;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 20px 0 20px 20px;
+  border-color: #00acd6 #00acd6 #00acd6 transparent !important;
+  z-index: 150;
+}
+.nav-pills.nav-wizard > li:hover .nav-arrow {
+  border-color: transparent transparent transparent #aaa !important;
+}
+.nav-pills.nav-wizard > li:hover .nav-wedge {
+  border-color: #aaa #aaa #aaa transparent !important;
+}
+.nav-pills.nav-wizard > li:hover a {
+  background-color: #aaa !important;
+  color: #fff !important;
+}
+.nav-pills.nav-wizard > li.active .nav-arrow {
+  border-color: transparent transparent transparent #428bca !important;
+}
+.nav-pills.nav-wizard > li.active .nav-wedge {
+  border-color: #428bca #428bca #428bca transparent !important;
+}
+.nav-pills.nav-wizard > li.active a {
+  background-color: #428bca !important;
+}
+
+
+/*
+.nav-tabs.nav-wizard {
+ height: 30px;
+}
+*/
+.nav-tabs.nav-wizard > li {
+  position: relative;
+  overflow: visible;
+ 
+}
+
+
+.nav-tabs.nav-wizard > li > a, .navbar-brand {
+    padding-top:5px !important; padding-bottom:0 !important;
+    height: 30px;
+}
+
+
+
+.nav-tabs.nav-wizard > li a {
+ 
+  background-color: #00acd6 !important;
+  min-height:30px !important;
+}
+.nav-tabs.nav-wizard > li .nav-arrow {
+  position: absolute;
+  border-style: solid;
+  border-color: transparent transparent transparent #00acd6 !important;
+  z-index: 150;
+}
+.nav-tabs.nav-wizard > li .nav-wedge {
+  position: absolute;
+ 
+  border-color: #00acd6 #00acd6 #00acd6 transparent !important;
+  z-index: 150;
+}
+.nav-tabs.nav-wizard > li:hover .nav-arrow {
+  border-color: transparent transparent transparent #aaa !important;
+}
+.nav-tabs.nav-wizard > li:hover .nav-wedge {
+  border-color: #aaa #aaa #aaa transparent !important;
+}
+.nav-tabs.nav-wizard > li:hover a {
+  background-color: #aaa !important;
+  color: #fff !important;
+}
+.nav-tabs.nav-wizard > li.active .nav-arrow {
+  border-color: transparent transparent transparent #428bca !important;
+}
+.nav-tabs.nav-wizard > li.active .nav-wedge {
+  border-color: #428bca #428bca #428bca transparent !important;
+}
+.nav-tabs.nav-wizard > li.active a {
+  background-color: #428bca !important;
+}
