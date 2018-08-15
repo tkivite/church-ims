@@ -173,8 +173,10 @@ AuthenticateSession();
 
 $_SESSION[notes] = '';
 
-$modules_array = array( "Administration","Approvals", "Messaging","Finance", "Reports", "Master Records", "Settings","User Administration"); //
-$user_id = $_SESSION['user_id'];
+          //$modules_array = array( "Administration","Approvals", "Messaging","Finance", "Reports", "Master Records", "Settings","User Administration"); //
+          $modules_array = array( "Administration","Finance", "Reports", "Master Records", "Settings","User Administration"); //
+
+          $user_id = $_SESSION['user_id'];
 //print_r_html($_SESSION);
 //$uri = "modules/$user_id";
 /*$modules_arrayF = json_decode(fetchJsonData($uri));
