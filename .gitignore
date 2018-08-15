@@ -1,0 +1,8 @@
+.idea
+Shared/dblink.php
+composer.json
+composer.lock
+composer.phar
+nbproject
+vendor
+
