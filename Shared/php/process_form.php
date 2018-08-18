@@ -55,6 +55,51 @@ switch (strtoupper($f)) {
             LogInFile("New Record", $_POST, $sql);
             // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
 
+            $_SESSION[notes] = "Group Type Created Successfully";
+        }
+        break;
+    case "GROUPS":
+        if ($_POST['cell'] != '') {
+
+           // Select GroupID as primarykey, GroupName,(select GroupType from SRC_GroupTypes where SRC_GroupTypes.GroupTypeID = SRC_Groups.GroupTypeID)Group_Type, GroupLabel
+            $sql = "update SRC_Groups set GroupName = ? GroupTypeID = ?, GroupLabel = ? where GroupID = ? ";
+            $sql = $dblink->prepare($sql);
+            $sql->bind_param("ssss", $GroupName, $GroupTypeID,$GroupLabel, $cell);
+            $sql->execute();
+            LogInFile("Group Update", $_POST, $sql);
+
+            $_SESSION[notes] = "Group Updated Successfully";
+        } else {
+            $sql = "insert into SRC_GroupTypes (GroupName,GroupTypeID,GroupLabel ) values(?,?,?)";
+            $sql = $dblink->prepare($sql);
+            $sql->bind_param("sss", $GroupName, $GroupTypeID,$GroupLabel);
+            $sql->execute();
+            LogInFile("New Record", $_POST, $sql);
+            // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
+            $_SESSION[notes] = "Group Created Successfully";
+
+
+        }
+        break;
+    case "MEMBERS":
+        if ($_POST['cell'] != '') {
+
+           // MemberID as primarykey, `Email`,  `FirstName`,`MiddleName`, `LastName`, `Mobile`, `Residence`, `Occupation`, `Gender` from SRC_Members
+            $sql = "update SRC_Members set Email = ?, FirstName = ?, MiddleName = ? , LastName = ?, Mobile = ?, Residence = ?, Occupation = ?, Gender = ? where MemberID = ? ";
+            $sql = $dblink->prepare($sql);
+            $sql->bind_param("sssssssss", $Email, $FirstName,$MiddleName,$LastName,$Mobile,$Residence,$Occupation, $Gender, $cell);
+            $sql->execute();
+            LogInFile("Member Update", $_POST, $sql);
+
+            $_SESSION[notes] = "Member Updated Successfully";
+        } else {
+            $sql = "insert into SRC_Members (Email,FirstName , MiddleName,LastName , Mobile , Residence , Occupation , Gender) values(?,?,?,?,?,?,?,?)";
+            $sql = $dblink->prepare($sql);
+            $sql->bind_param("ssssssss", $Email, $FirstName,$MiddleName,$LastName,$Mobile,$Residence,$Occupation, $Gender);
+            $sql->execute();
+            LogInFile("New Member", $_POST, $sql);
+            // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
+
 
         }
         break;

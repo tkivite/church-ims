@@ -114,12 +114,12 @@ switch ($id) {
         if ($sub_id == '0') {
             echo $current_page;
         }
-        /*elseif ($sub_id == 'view') {    //Inner loading pages
+        elseif ($sub_id == 'view') {    //Inner loading pages
         include('../../administration/view/groupView.php');
       
         } elseif ($sub_id == '1') {
         include('../../administration/form/groupForm.php');
-        }*/
+        }
         break;   
       case 4:
         // $current_page = "onboarding/list/userList.php"; //Grid loading page

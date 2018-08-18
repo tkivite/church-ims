@@ -341,6 +341,7 @@ $(document).on('click', '.gridCustomDelete', function () {
     return false;
 });
 
+
 $(document).on('click', '.gridResendButton', function () {
 
     var deleteItem = confirm("Are you sure you want to resend message?");
