@@ -1420,4 +1420,34 @@ function GetValue($Get_Field, $Get_Table, $Where_Field, $Where_Value, $Other = '
     
 }
 
+function createSelect($name, $default, $query, $required, $selItem, $multiSelect = false) {
+    GLOBAL $dblink, $database;
+    $class = "class=";
+    if ($required)
+        $required = "required,";
+    else
+        $required = "";
+    $multiple = '';
+    if ($multiSelect) {
+        $multiple = "multiple='multiple'";
+        $multiSelect = 'multiselectd 3col active';
+    } else
+        $multiSelect = "";
+
+    $select = "<select name='" . $name . "[]' id='$name' class='$required $multiSelect' $multiple>";
+    if ($default != '')#First option
+        $select .= "<option value=''>$default</option>";
+    #Get elements from Query
+    $result = mysql_db_query($database, $query, $dblink);
+    while ($row = mysql_fetch_array($result)) {
+        if ($selItem != '' && ($selItem == $row[0] ))
+            $select .= "<option value='" . $row[0] . "' selected>". $row[1] . "</option>";
+        else
+            $select .= "<option value='" . $row[0] . "'>" . $row[1] . "</option>";
+    }
+    $select .= "</select>";
+    return $select;
+}
+
+
 ?>

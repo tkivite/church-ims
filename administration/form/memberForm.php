@@ -36,7 +36,7 @@ echo $title;
                              <div class="box-body">
 
     
-<form name="member" role="form" method="POST" title="" class="form-horizontal" enctype="multipart/form-data" style="display: block;">
+<form name="members" role="form" method="POST" title="" class="form-horizontal" enctype="multipart/form-data" style="display: block;">
    
 
     <div class="form-group">

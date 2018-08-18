@@ -6,7 +6,7 @@ include("../../Shared/php/functions.php");
 $_SESSION[page_size]=isset($page_size)? $page_size : 100;
 $searchFilter = '';
 
-$query = "Select GroupTypeID as primarykey, `GroupType` from SRC_GroupTypes" ;
+$query = "Select GroupTypeID as primarykey, `GroupType`,Description from SRC_GroupTypes" ;
 
 $_SESSION['sqlxls'] = $query;
 $target_page = $_SESSION['targetpage'];
