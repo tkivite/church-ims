@@ -7,7 +7,7 @@
     <script src="frontend-template/dist/js/pages/disbreceipts.js"></script>
    <?php
 ini_set('display_errors', 1);
-include("Shared/php/api.php");
+include("Shared/php/functions.php");
 AuthenticateSession();
 ?>
        <script>
@@ -77,14 +77,23 @@ from dual");
                
             </div>  
            </div>
-       
-       
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Search Tools</h3>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
  
         <div class="row">
        <div class="col-md-12">
               <div class="box">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tickets Summary</h3>
+                  <h3 class="box-title">Membership</h3>
                   <div class="box-tools pull-right">
                     <button class="btn btn-sm btn-info" data-widget="collapse"><i class="fa fa-minus"></i></button>
                    </div>
