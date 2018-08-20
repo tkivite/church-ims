@@ -90,7 +90,7 @@ $(document).ready(function () {
 
 
 
-                // console.log('fetching: /church-ims/tabs/' + theUrl + '.php');
+                // console.log('fetching: /church-ims-testtabs/' + theUrl + '.php');
 
                 $.blockUI({
                     css: {
@@ -106,7 +106,7 @@ $(document).ready(function () {
 
                 $.ajax({
                     type: 'get',
-                    url: '/church-ims/tabs/' + theUrl + '.php',
+                    url: '/church-ims-testtabs/' + theUrl + '.php',
 
                     success: function (result) {
                         // console.log("Appending: " + selectedTab);
@@ -566,7 +566,7 @@ function loadtabDefault(wrapperId) {
     // console.log("removing content from: " + wrapperId);
     $("#dynamicContent").remove();
 
-    // console.log('fetching: /church-ims/tabs/' + theUrl + '.php');
+    // console.log('fetching: /church-ims-testtabs/' + theUrl + '.php');
 
     $.blockUI({
         css: {
@@ -582,7 +582,7 @@ function loadtabDefault(wrapperId) {
 
     $.ajax({
         type: 'get',
-        url: '/church-ims/tabs/' + theUrl + '.php',
+        url: '/church-ims-testtabs/' + theUrl + '.php',
 
         success: function (result) {
             // console.log("Appending: " + wrapperId);
@@ -820,7 +820,7 @@ $(document).on('click', '.mymenutabs', function (e) {
         loadtabDefault(wrapperId);
         /*   $.ajax({
                type: 'get',
-               url: '/church-ims/tabs/' + theUrl + '.php',
+               url: '/church-ims-testtabs/' + theUrl + '.php',
 
                success: function (result) {
                    $("div" + wrapperId + ".content-wrapper").append(result);
@@ -1299,7 +1299,7 @@ $(document).on('click', 'td.acct-details-control', function () {
 
         $.ajax({
             type: 'get',
-            url: '../../church-ims/Shared/php/resolve.php',
+            url: '../../church-ims-testShared/php/resolve.php',
             data: 'key=' + d + '&sid=' + subid + '&id=' + page_id,
             success: function (result) {
                 console.log('key=' + d + '&sid=' + subid + '&id=' + page_id);
@@ -1338,7 +1338,7 @@ $(document).on('click', 'td.details-control', function () {
 
         $.ajax({
             type: 'get',
-            url: '../../church-ims/Shared/php/resolve.php',
+            url: '../../church-ims-testShared/php/resolve.php',
             data: 'key=' + d + '&sid=' + subid + '&id=' + page_id,
             success: function (result) {
                 console.log('key=' + d + '&sid=' + subid + '&id=' + $('#page_id').val());
@@ -1382,7 +1382,7 @@ $(document).on('click', 'button.details-control', function () {
 
         $.ajax({
             type: 'get',
-            url: '../../church-ims/Shared/php/resolve.php',
+            url: '../../church-ims-testShared/php/resolve.php',
             data: 'key=' + d + '&sid=' + subid + '&id=' + page_id,
             success: function (result) {
                 // console.log(result);
