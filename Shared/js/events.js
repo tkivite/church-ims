@@ -380,7 +380,7 @@ $(document).on('click', '.gridResendButton', function () {
     return false;
 });
 
-
+//Nothing just test ddeployment hook
 //$(".gridPinResetButton").click(function () {
 //$(document).on("click",".gridPinResetButton")function () {
 $(document).on('click', ".gridPinResetButton", function () {
