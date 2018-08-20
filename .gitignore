@@ -1,5 +1,6 @@
 .idea
 Shared/php/dblink.php
+Shared/js/*
 composer.json
 composer.lock
 composer.phar
