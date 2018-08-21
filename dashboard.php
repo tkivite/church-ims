@@ -115,8 +115,8 @@ from dual");
               <!-- small box -->
               <div class="small-box bg-lime">
                 <div class="inner activeL">
-                  <p>All Tickets</p>
-                  <h2>3</h2>
+                  <p>All Active Members</p>
+                  <h2>173</h2>
                 </div>
                 <div class="icon">
                   <i class="ion ion-grid"></i>
@@ -129,8 +129,8 @@ from dual");
               <div class="small-box bg-teal">
                 <div class="inner">
                   
-                  <p>New Tickets</p>                 
-                  <h2>1</h2>
+                  <p>New Members (less than 1 year)</p>
+                  <h2>70</h2>
 
 
                 </div>
@@ -145,8 +145,8 @@ from dual");
               <!-- small box -->
               <div class="small-box bg-maroon">
                 <div class="inner">
-                  <p>Open Tickets</p>                 
-                  <h2>1</h2>
+                  <p>Visitors (Last One Year)</p>
+                  <h2>320</h2>
                 </div>
                 <div class="icon">
                   <i class="ion ion-ios-pricetags"></i>
@@ -160,8 +160,8 @@ from dual");
               <!-- small box -->
               <div class="small-box bg-orange">
                 <div class="inner">
-                   <p>Closed Tickets</p> 
-                  <h2> 2</h2>                
+                   <p>Inactive Members</p>
+                  <h2> 50</h2>
                  
                 </div>
                 <div class="icon">
