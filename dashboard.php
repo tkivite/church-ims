@@ -121,7 +121,7 @@ from dual");
                 <div class="icon">
                   <i class="ion ion-grid"></i>
                 </div>
-                <a href="151" class="small-box-footer loadDashboardLink">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="142" class="small-box-footer loadDashboardLink">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
             <div class="col-lg-3 col-xs-6">
