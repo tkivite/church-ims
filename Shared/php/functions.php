@@ -1434,12 +1434,13 @@ function createSelect($name, $default, $query, $required, $selItem, $multiSelect
     } else
         $multiSelect = "";
 
-    $select = "<select name='" . $name . "[]' id='$name' class='$required $multiSelect' $multiple>";
+    $select = "<select name='" . $name . "[]' id='$name' class='$required $multiSelect form-control' $multiple>";
     if ($default != '')#First option
         $select .= "<option value=''>$default</option>";
     #Get elements from Query
-    $result = mysql_db_query($database, $query, $dblink);
-    while ($row = mysql_fetch_array($result)) {
+    //$result = mysql_db_query($database, $query, $dblink);
+    $result = $dblink->query($query);
+    while ($row = mysqli_fetch_array($result)) {
         if ($selItem != '' && ($selItem == $row[0] ))
             $select .= "<option value='" . $row[0] . "' selected>". $row[1] . "</option>";
         else

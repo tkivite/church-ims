@@ -261,10 +261,27 @@ switch ($id) {
         } elseif ($sub_id == '1') {
         include('../../finance/form/transactionTypesForm.php');
         }
-        break; 
-       
-    
-    
+        break;
+
+    case 118:
+    case 119:
+        // $current_page = "onboarding/list/userList.php"; //Grid loading page
+        $current_page = "finance/list/transactionList.php";
+        //$current_page = "onboarding/php/tables.html";
+
+        if ($sub_id == '0') {
+            echo $current_page;
+        }
+        elseif ($sub_id == 'view') {    //Inner loading pages
+            include('../../finance/view/transactionListView.php');
+
+        } elseif ($sub_id == '1') {
+            include('../../finance/form/transactionForm.php');
+        }
+        break;
+
+
+
     default:
         echo $current_page = "Shared/php/brokenlink.php";
         break;
