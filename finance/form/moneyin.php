@@ -44,13 +44,13 @@ echo $title;
                              <div class="box-body">
 
 
-<form name="members" role="form" method="POST" title="" class="form-horizontal" enctype="multipart/form-data" style="display: block;">
+<form name="moneyin" role="form" method="POST" title="" class="form-horizontal" enctype="multipart/form-data" style="display: block;">
 
 
     <div class="form-group">
         <label class="control-label col-sm-2" for="name">Transaction Type:</label>
         <div class="col-sm-10">
-            <?php $query = 'Select TransactionTypeID,`TransactionType` From SRC_TransactionTypes';
+            <?php $query = 'Select TransactionTypeID,`TransactionType` From SRC_TransactionTypes where AccountID in (select AccountID from SRC_Accounts where Category =\'Income\') ';
 
              $select = createSelect('TransactionType','SelectTransactionType',$query,true,$TransactionType);
              echo  $select;
@@ -58,25 +58,29 @@ echo $title;
 
         </div>
     </div>
-        <div class="form-group">
-        <label class="control-label col-sm-2" for="name">Line Amounts:</label>
-        <div class="col-sm-10">
-            <?php $channels = execQuery('Select ChannelID,ChannelName From SRC_PaymentChannels ');
-            foreach ($channels as $item) {
-                ?>
 
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Item<?php echo $item[1]; ?></span>
-                    </div>
-                    <input type="text" name="<?php echo $item[0]; ?>" class="form-control" placeholder="Amount">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="DOB">Line Amounts:</label>
+        <div class="col-sm-10">
+            <?php $channels = execQuery('Select ChannelID,ChannelName From SRC_PaymentChannels  order by ChannelID Asc');
+           // var_dump($channels);
+            foreach ($channels as $item) {
+            ?>
+            <div class="input-group">
+                <div class="input-group-addon" style="width: 120px !important">
+                    <?php echo $item['ChannelName']; ?>
                 </div>
-<?php
+                <input type="number" min="0.00" max="10000.00" step="0.01" name="<?php echo 'channel_'.$item['ChannelID']; ?>" class="form-control" placeholder="Amount">
+            </div>
+
+                <?php
+
             }
 
 
             ?>
         </div>
+        <!-- /.input group -->
     </div>
 
     <div class="form-group" >
@@ -88,18 +92,12 @@ echo $title;
 
         </div>
         </div>
-    <div class="form-group" >
-        <label class="control-label col-sm-2" for="DOB">Time of transaction:</label>
-        <div class="col-sm-10">
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text">@</span>
-        </div>
-        <input type="text" class="form-control" placeholder="Username" id="usr" name="username">
-    </div>
 
-    </div>
-    </div>
+
+
+
+
+
     <div class="form-group">
         <label class="control-label col-sm-2" for="email"></label>
         <div class="col-sm-10">
