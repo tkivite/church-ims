@@ -17,7 +17,7 @@ GLOBAL $dblink;
 $title = "New Transaction";
 $cell  = $_GET['cell'];
 if (isset($_GET[cell])) {
-    $sql                  = " SELECT TransactionID as PRIMARY_KEY, TransactionType,TransactionAmount,CreatedBy,TransactionConfirmed,TimeCreated,TimeOfTransaction  FROM SRC_Transactions WHERE  TransactionID = '" . $_GET[cell] . "'";
+    $sql                  = " SELECT TransactionID as PRIMARY_KEY, TransactionDetails,TransactionAmount,CreatedBy,TransactionConfirmed,TimeCreated,TimeOfTransaction  FROM SRC_Transactions WHERE  TransactionID = '" . $_GET[cell] . "'";
     $result               = $dblink->query($sql);
     $row                  = mysqli_fetch_array($result);
     $TransactionType      = $row[1];
@@ -44,13 +44,13 @@ echo $title;
                              <div class="box-body">
 
 
-<form name="moneyin" role="form" method="POST" title="" class="form-horizontal" enctype="multipart/form-data" style="display: block;">
+<form name="moneyout" role="form" method="POST" title="" class="form-horizontal" enctype="multipart/form-data" style="display: block;">
 
 
     <div class="form-group">
         <label class="control-label col-sm-2" for="name">Transaction Type:</label>
         <div class="col-sm-10">
-            <?php $query = 'Select TransactionTypeID,`TransactionType` From SRC_TransactionTypes where AccountID in (select AccountID from SRC_Accounts where Category =\'Income\') ';
+            <?php $query = 'Select TransactionTypeID,`TransactionType` From SRC_TransactionTypes where AccountID in (select AccountID from SRC_Accounts where Category =\'Expense\') ';
 
              $select = createSelect('TransactionType','SelectTransactionType',$query,true,$TransactionType);
              echo  $select;
@@ -64,10 +64,11 @@ echo $title;
         <div class="col-sm-10">
             <?php $channels = execQuery('Select ChannelID,ChannelName From SRC_PaymentChannels  order by ChannelID Asc');
            // var_dump($channels);
+            $recordCount = count($channels);
             foreach ($channels as $item) {
             ?>
             <div class="input-group">
-                <div class="input-group-addon" style="width: 120px !important">
+                <div class="input-group-addon" style="width: 120px !important;background-color: lightgrey;">
                     <?php echo $item['ChannelName']; ?>
                 </div>
                 <input type="number" min="0.00" max="10000.00" step="0.01" name="<?php echo 'channel_'.$item['ChannelID']; ?>" class="form-control" placeholder="Amount">
@@ -94,6 +95,27 @@ echo $title;
         </div>
 
 
+    <div class="form-group" >
+        <label class="control-label col-sm-2" for="DOB">Reference:</label>
+        <div class="col-sm-10">
+            <input type="text" name="reference" id="reference" class="form-control required" value="<?php
+            echo $reference
+            ?>" maxlength="255" placeholder="enter reference">
+
+        </div>
+    </div>
+
+    <div class="form-group" >
+        <label class="control-label col-sm-2" for="DOB">Details:</label>
+        <div class="col-sm-10">
+            <textarea name="details" id="details" class="form-control required" placeholder="enter details">
+            <?php
+            echo $details
+            ?></textarea>
+        </div>
+    </div>
+
+
 
 
 
@@ -107,6 +129,11 @@ echo $title;
             <input type="hidden" name="cell" value="<?php
     echo $_GET[cell];
 ?>"/>
+            <input type="hidden" name="recordscount" value="<?php
+            echo $recordCount;
+            ?>"/>
+
+
         </div>
 
     </div>

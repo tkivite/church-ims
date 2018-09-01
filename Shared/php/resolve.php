@@ -263,7 +263,7 @@ switch ($id) {
         }
         break;
 
-    case 118:
+
     case 119:
         // $current_page = "onboarding/list/userList.php"; //Grid loading page
         $current_page = "finance/list/transactionList.php";
@@ -276,7 +276,24 @@ switch ($id) {
             include('../../finance/view/transactionListView.php');
 
         } elseif ($sub_id == '1') {
-            include('../../finance/form/transactionForm.php');
+            include('../../finance/form/moneyin.php');
+        }
+        break;
+
+    case 118:
+
+        // $current_page = "onboarding/list/userList.php"; //Grid loading page
+        $current_page = "finance/list/transactionList.php";
+        //$current_page = "onboarding/php/tables.html";
+
+        if ($sub_id == '0') {
+            echo $current_page;
+        }
+        elseif ($sub_id == 'view') {    //Inner loading pages
+            include('../../finance/view/transactionListView.php');
+
+        } elseif ($sub_id == '1') {
+            include('../../finance/form/moneyout.php');
         }
         break;
 
