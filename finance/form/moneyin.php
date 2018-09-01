@@ -17,7 +17,7 @@ GLOBAL $dblink;
 $title = "New Transaction";
 $cell  = $_GET['cell'];
 if (isset($_GET[cell])) {
-    $sql                  = " SELECT TransactionID as PRIMARY_KEY, TransactionType,TransactionAmount,CreatedBy,TransactionConfirmed,TimeCreated,TimeOfTransaction  FROM SRC_Transactions WHERE  TransactionID = '" . $_GET[cell] . "'";
+    $sql                  = " SELECT TransactionID as PRIMARY_KEY, TransactionDetails,TransactionAmount,CreatedBy,TransactionConfirmed,TimeCreated,TimeOfTransaction  FROM SRC_Transactions WHERE  TransactionID = '" . $_GET[cell] . "'";
     $result               = $dblink->query($sql);
     $row                  = mysqli_fetch_array($result);
     $TransactionType      = $row[1];
@@ -44,13 +44,13 @@ echo $title;
                              <div class="box-body">
 
 
-<form name="members" role="form" method="POST" title="" class="form-horizontal" enctype="multipart/form-data" style="display: block;">
+<form name="moneyin" role="form" method="POST" title="" class="form-horizontal" enctype="multipart/form-data" style="display: block;">
 
 
     <div class="form-group">
         <label class="control-label col-sm-2" for="name">Transaction Type:</label>
         <div class="col-sm-10">
-            <?php $query = 'Select TransactionTypeID,`TransactionType` From SRC_TransactionTypes';
+            <?php $query = 'Select TransactionTypeID,`TransactionType` From SRC_TransactionTypes where AccountID in (select AccountID from SRC_Accounts where Category =\'Income\') ';
 
              $select = createSelect('TransactionType','SelectTransactionType',$query,true,$TransactionType);
              echo  $select;
@@ -58,25 +58,31 @@ echo $title;
 
         </div>
     </div>
-        <div class="form-group">
-        <label class="control-label col-sm-2" for="name">Line Amounts:</label>
-        <div class="col-sm-10">
-            <?php $channels = execQuery('Select ChannelID,ChannelName From SRC_PaymentChannels ');
-            foreach ($channels as $item) {
-                ?>
 
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Item<?php echo $item[1]; ?></span>
-                    </div>
-                    <input type="text" name="<?php echo $item[0]; ?>" class="form-control" placeholder="Amount">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="DOB">Line Amounts:</label>
+        <div class="col-sm-10">
+            <?php $channels = execQuery('Select ChannelID,ChannelName From SRC_PaymentChannels  order by ChannelID Asc');
+           // var_dump($channels);
+            $i = 0;
+            foreach ($channels as $item) {
+            ?>
+            <div class="input-group">
+                <div class="input-group-addon" style="width: 120px !important;background-color: lightgrey;">
+                    <?php echo $item['ChannelName']; ?>
                 </div>
-<?php
+                <input type="number" min="0.00" max="10000.00" step="0.01" name="<?php echo 'amount_'.$i; ?>" class="form-control" placeholder="Amount">
+                <input type="hidden" name="<?php echo 'channel_'.$i; ?>" value="<?php  echo $item['ChannelID'];  ?>"/>
+            </div>
+
+                <?php
+
             }
 
 
             ?>
         </div>
+        <!-- /.input group -->
     </div>
 
     <div class="form-group" >
@@ -88,18 +94,32 @@ echo $title;
 
         </div>
         </div>
+
     <div class="form-group" >
-        <label class="control-label col-sm-2" for="DOB">Time of transaction:</label>
+        <label class="control-label col-sm-2" for="DOB">Reference:</label>
         <div class="col-sm-10">
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text">@</span>
+            <input type="text" name="reference" id="reference" class="form-control required" value="<?php
+            echo $reference
+            ?>" maxlength="255" placeholder="enter reference">
+
         </div>
-        <input type="text" class="form-control" placeholder="Username" id="usr" name="username">
     </div>
 
+    <div class="form-group" >
+        <label class="control-label col-sm-2" for="DOB">Details:</label>
+        <div class="col-sm-10">
+            <textarea name="details" id="details" class="form-control required" placeholder="enter details">
+            <?php
+                echo $details
+                ?></textarea>
+        </div>
     </div>
-    </div>
+
+
+
+
+
+
     <div class="form-group">
         <label class="control-label col-sm-2" for="email"></label>
         <div class="col-sm-10">

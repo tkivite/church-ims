@@ -1,4 +1,10 @@
 frontend-template2
 frontend-template.zip
+frontend-template2.zip
 Shared/php/Classes
 Shared/php/PHPMailer
+vendor
+nbproject
+composer.*
+.idea
+

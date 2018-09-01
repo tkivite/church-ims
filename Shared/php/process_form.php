@@ -104,6 +104,55 @@ switch (strtoupper($f)) {
         }
         break;
 
+    case "MONEYIN":
+        if ($_POST['cell'] != '') {
+
+            // MemberID as primarykey, `Email`,  `FirstName`,`MiddleName`, `LastName`, `Mobile`, `Residence`, `Occupation`, `Gender` from SRC_Members
+            $sql = "update SRC_Transactions set Email = ?, FirstName = ?, MiddleName = ? , LastName = ?, Mobile = ?, Residence = ?, Occupation = ?, Gender = ? where MemberID = ? ";
+            $sql = $dblink->prepare($sql);
+            $sql->bind_param("sssssssss", $Email, $FirstName,$MiddleName,$LastName,$Mobile,$Residence,$Occupation, $Gender, $cell);
+            $sql->execute();
+            LogInFile("Member Update", $_POST, $sql);
+
+            $_SESSION[notes] = "Member Updated Successfully";
+        } else {
+
+            for ($i=0;$i < $recordCount; $i++) {
+                if($amount.'_'.$i )
+                $sql = "insert into SRC_Transactions (TransactionTypeID,TransactionAmount , TransactionChannelID,TransactionRef , TransactionDetails ,TimeOfTransaction) 
+                                                  values(?,?,?,?,?,?)";
+                $sql = $dblink->prepare($sql);
+                $sql->bind_param("ssssss", $TransactionType, $amount.'_'.$i, $channel.'_'.$i, $reference, $details, $TimeOfTransaction);
+                $sql->execute();
+                LogInFile("New Transaction", $_POST, $sql);
+                // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
+
+            }
+
+        }
+        break;
+    case "MONEYOUT":
+        if ($_POST['cell'] != '') {
+
+            // MemberID as primarykey, `Email`,  `FirstName`,`MiddleName`, `LastName`, `Mobile`, `Residence`, `Occupation`, `Gender` from SRC_Members
+            $sql = "update SRC_Members set Email = ?, FirstName = ?, MiddleName = ? , LastName = ?, Mobile = ?, Residence = ?, Occupation = ?, Gender = ? where MemberID = ? ";
+            $sql = $dblink->prepare($sql);
+            $sql->bind_param("sssssssss", $Email, $FirstName,$MiddleName,$LastName,$Mobile,$Residence,$Occupation, $Gender, $cell);
+            $sql->execute();
+            LogInFile("Member Update", $_POST, $sql);
+
+            $_SESSION[notes] = "Member Updated Successfully";
+        } else {
+            $sql = "insert into SRC_Members (Email,FirstName , MiddleName,LastName , Mobile , Residence , Occupation , Gender) values(?,?,?,?,?,?,?,?)";
+            $sql = $dblink->prepare($sql);
+            $sql->bind_param("ssssssss", $Email, $FirstName,$MiddleName,$LastName,$Mobile,$Residence,$Occupation, $Gender);
+            $sql->execute();
+            LogInFile("New Member", $_POST, $sql);
+            // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
+
+
+        }
+        break;
 
 }
 
