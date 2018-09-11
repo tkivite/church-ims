@@ -63,7 +63,7 @@ echo $title;
         <label class="control-label col-sm-2" for="DOB">Line Amounts:</label>
         <div class="col-sm-10">
             <?php $channels = execQuery('Select ChannelID,ChannelName From SRC_PaymentChannels  order by ChannelID Asc');
-           // var_dump($channels);
+            $recordCount = count($channels);
             $i = 0;
             foreach ($channels as $item) {
             ?>
@@ -76,6 +76,7 @@ echo $title;
             </div>
 
                 <?php
+                $i+=1;
 
             }
 
@@ -127,9 +128,11 @@ echo $title;
             <button type="submit" name="action" value="Save" class="btn-primary btn-sm btn-success gridPrimaryButtonSubmit">Save</button>
             <button type="button" name="cancel" value="Cancel" class="btn-primary btn-sm btn-danger gridSecondaryButton">Cancel</button>
             <input type="hidden" name="cell" value="<?php
-    echo $_GET[cell];
-?>"/>
-        </div>
+            echo $_GET[cell];
+            ?>"/>
+            <input type="hidden" name="recordscount" value="<?php
+            echo $recordCount;
+            ?>"/>
 
     </div>
 

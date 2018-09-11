@@ -1,0 +1,186 @@
+2018-09-01 19:23(62018Sat, 01 Sep 2018 19:23:52 +0300Sat, 01 Sep 2018 19:23:52 +030018)New Transaction  Array
+(
+    [TransactionType] => 
+    [amount_0] => 0
+    [channel_0] => 4
+    [TransactionTime] => 2018-12-12T12:12
+    [reference] => REF
+    [details] =>  REF
+    [cell] => 
+    [recordscount] => 4
+    [permission] => 
+)
+ Query: $TransactionType, $amount.'_'.$i, $channel.'_'.$i, $reference, $details, to_timestamp('" . $TimeOfTransaction . "',  'yyyy-mm-dd h-m-s')
+2018-09-01 19:29(62018Sat, 01 Sep 2018 19:29:38 +0300Sat, 01 Sep 2018 19:29:38 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [amount_0] => 5000
+    [channel_0] => 4
+    [TransactionTime] => 2018-12-12T23:11
+    [reference] => REF
+    [details] =>  REF
+    [cell] => 
+    [recordscount] => 4
+    [permission] => 
+)
+ Query: $TransactionType, $amount.'_'.$i, $channel.'_'.$i, $reference, $details, to_timestamp('" . $TimeOfTransaction . "',  'yyyy-mm-dd h-m-s')
+2018-09-01 19:31(62018Sat, 01 Sep 2018 19:31:25 +0300Sat, 01 Sep 2018 19:31:25 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [amount_0] => 5000
+    [channel_0] => 4
+    [TransactionTime] => 2018-12-12T22:10
+    [reference] => REF
+    [details] => Ref
+    [cell] => 
+    [recordscount] => 4
+    [permission] => 
+)
+ Query: $TransactionType, $amount.'_'.$i, $channel.'_'.$i, $reference, $details, to_timestamp('" . $TimeOfTransaction . "',  'yyyy-mm-dd h-m-s')
+2018-09-01 19:40(62018Sat, 01 Sep 2018 19:40:43 +0300Sat, 01 Sep 2018 19:40:43 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [amount_0] => 399
+    [channel_0] => 4
+    [TransactionTime] => 2018-12-12T12:12
+    [reference] => ewrt
+    [details] =>  tytyyuy 
+    [cell] => 
+    [recordscount] => 4
+    [permission] => 
+)
+ Query: 1
+2018-09-01 19:40(62018Sat, 01 Sep 2018 19:40:43 +0300Sat, 01 Sep 2018 19:40:43 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [amount_0] => 399
+    [channel_0] => 4
+    [TransactionTime] => 2018-12-12T12:12
+    [reference] => ewrt
+    [details] =>  tytyyuy 
+    [cell] => 
+    [recordscount] => 4
+    [permission] => 
+)
+ Query: 1
+2018-09-01 19:43(62018Sat, 01 Sep 2018 19:43:05 +0300Sat, 01 Sep 2018 19:43:05 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [amount_0] => 20000
+    [channel_0] => 4
+    [TransactionTime] => 2012-12-12T12:12
+    [reference] => ref
+    [details] => ref 
+    [cell] => 
+    [recordscount] => 4
+    [permission] => 
+)
+ Query: 1
+2018-09-01 19:43(62018Sat, 01 Sep 2018 19:43:05 +0300Sat, 01 Sep 2018 19:43:05 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [amount_0] => 20000
+    [channel_0] => 4
+    [TransactionTime] => 2012-12-12T12:12
+    [reference] => ref
+    [details] => ref 
+    [cell] => 
+    [recordscount] => 4
+    [permission] => 
+)
+ Query: 1
+2018-09-01 19:48(62018Sat, 01 Sep 2018 19:48:25 +0300Sat, 01 Sep 2018 19:48:25 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [amount_0] => 20000
+    [channel_0] => 1
+    [amount_1] => 15000
+    [channel_1] => 2
+    [amount_2] => 23000
+    [channel_2] => 3
+    [amount_3] => 45000
+    [channel_3] => 4
+    [TransactionTime] => 2015-12-12T12:12
+    [reference] => ref
+    [details] => ref 
+    [cell] => 
+    [recordscount] => 4
+    [permission] => 
+)
+ Query: 1
+2018-09-01 19:48(62018Sat, 01 Sep 2018 19:48:25 +0300Sat, 01 Sep 2018 19:48:25 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [amount_0] => 20000
+    [channel_0] => 1
+    [amount_1] => 15000
+    [channel_1] => 2
+    [amount_2] => 23000
+    [channel_2] => 3
+    [amount_3] => 45000
+    [channel_3] => 4
+    [TransactionTime] => 2015-12-12T12:12
+    [reference] => ref
+    [details] => ref 
+    [cell] => 
+    [recordscount] => 4
+    [permission] => 
+)
+ Query: 1
+2018-09-01 19:48(62018Sat, 01 Sep 2018 19:48:25 +0300Sat, 01 Sep 2018 19:48:25 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [amount_0] => 20000
+    [channel_0] => 1
+    [amount_1] => 15000
+    [channel_1] => 2
+    [amount_2] => 23000
+    [channel_2] => 3
+    [amount_3] => 45000
+    [channel_3] => 4
+    [TransactionTime] => 2015-12-12T12:12
+    [reference] => ref
+    [details] => ref 
+    [cell] => 
+    [recordscount] => 4
+    [permission] => 
+)
+ Query: 1
+2018-09-01 19:48(62018Sat, 01 Sep 2018 19:48:25 +0300Sat, 01 Sep 2018 19:48:25 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [amount_0] => 20000
+    [channel_0] => 1
+    [amount_1] => 15000
+    [channel_1] => 2
+    [amount_2] => 23000
+    [channel_2] => 3
+    [amount_3] => 45000
+    [channel_3] => 4
+    [TransactionTime] => 2015-12-12T12:12
+    [reference] => ref
+    [details] => ref 
+    [cell] => 
+    [recordscount] => 4
+    [permission] => 
+)
+ Query: 1
+2018-09-01 19:48(62018Sat, 01 Sep 2018 19:48:25 +0300Sat, 01 Sep 2018 19:48:25 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [amount_0] => 20000
+    [channel_0] => 1
+    [amount_1] => 15000
+    [channel_1] => 2
+    [amount_2] => 23000
+    [channel_2] => 3
+    [amount_3] => 45000
+    [channel_3] => 4
+    [TransactionTime] => 2015-12-12T12:12
+    [reference] => ref
+    [details] => ref 
+    [cell] => 
+    [recordscount] => 4
+    [permission] => 
+)
+ Query: 1

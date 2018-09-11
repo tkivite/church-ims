@@ -19,7 +19,7 @@ session_start();
 //extract($clean);
 GLOBAL $dblink;
 
-$dateExt = date("Y-m-d");
+
 
 foreach ($_POST as $key => $value) {
     $_POST[$key] = mysqli_real_escape_string($dblink, $value);
@@ -105,6 +105,7 @@ switch (strtoupper($f)) {
         break;
 
     case "MONEYIN":
+        LogInFile("New Transaction", $_POST, '$TransactionType, $amount.\'_\'.$i, $channel.\'_\'.$i, $reference, $details, to_timestamp(\'" . $TimeOfTransaction . "\',  \'yyyy-mm-dd h-m-s\')');
         if ($_POST['cell'] != '') {
 
             // MemberID as primarykey, `Email`,  `FirstName`,`MiddleName`, `LastName`, `Mobile`, `Residence`, `Occupation`, `Gender` from SRC_Members
@@ -117,14 +118,19 @@ switch (strtoupper($f)) {
             $_SESSION[notes] = "Member Updated Successfully";
         } else {
 
-            for ($i=0;$i < $recordCount; $i++) {
-                if($amount.'_'.$i )
-                $sql = "insert into SRC_Transactions (TransactionTypeID,TransactionAmount , TransactionChannelID,TransactionRef , TransactionDetails ,TimeOfTransaction) 
-                                                  values(?,?,?,?,?,?)";
-                $sql = $dblink->prepare($sql);
-                $sql->bind_param("ssssss", $TransactionType, $amount.'_'.$i, $channel.'_'.$i, $reference, $details, $TimeOfTransaction);
-                $sql->execute();
-                LogInFile("New Transaction", $_POST, $sql);
+            for ($i=0;$i < $recordscount; $i++) {
+
+                $amount = $_POST["amount_" . $i];
+                $channel = $_POST["channel_" . $i];
+                if($amount > 0 ) {
+                    $sql = "insert into SRC_Transactions (TransactionTypeID,TransactionAmount , TransactionChannelID,TransactionRef , TransactionDetails ) 
+                                                  values(?,?,?,?,?)";
+                    $sql = $dblink->prepare($sql);
+                    $sql->bind_param("sssss", $TransactionType, $amount, $channel, $reference, $details );
+                    $sql->execute();
+
+                    LogInFile("New Transaction", $_POST, $sql->error);
+                }
                 // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
 
             }
@@ -153,6 +159,174 @@ switch (strtoupper($f)) {
 
         }
         break;
+
+    case "TRANS_ADD":
+        $rows = $_GET['rows'];
+        $i = 0;
+
+        $vals = array();
+
+        while ($r < $rows) {
+            $data['First_Name'] = '';
+            $data['Middle_Name'] = '';
+            $data['Last_Name'] = '';
+            $data['Phone_Number'] = '';
+            $data['Amount'] = 0;
+            $data['Job_Group'] = '';
+            $data['Province'] = 'Select Province';
+            $data['County'] = 'Select County';
+            $data['District'] = 'Select District';
+            $data['Payment_Type'] = 'Select Payment Type';
+            $data['Budget_Line'] = 'Select Budget Line';
+            $vals[] = $data;
+            $r++;
+        }
+
+        $data0 = json_encode($vals);
+        $_SESSION['datat2'] = "";
+        $_SESSION['datat2'] = $data0;
+        echo $_SESSION['datat2'];
+
+        break;
+
+    case "BULK_MEMBER_CREATION":
+
+        $jsondata = $_POST['jsondata'];
+        $arr = array();
+        $arr = json_decode($jsondata);
+
+    //    ECHO $_SESSION['testing4'] .= '................................................................................................<br/>';
+
+
+        $countx = 0;
+        $esistingCount = 0;
+
+        foreach ($arr as $x) {
+            $FirstName = $x[0];
+            $MiddleName = $x[1];
+            $LastName = $x[2];
+            $Mobile = $x[3];
+            $Mobile = mysqli_escape_string(str_replace(" ", "", str_replace("+", "", trim($Mobile))));
+            $Email = $x[4];
+            $Residence = $x[5];
+            $Occupation = $x[6];
+            $Gender = $x[7];
+            $Group = $x[8];
+
+            $sql = "insert into SRC_Members (Email,FirstName , MiddleName,LastName , Mobile , Residence , Occupation , Gender) values (?,?,?,?,?,?,?,?)";
+            $sql = $dblink->prepare($sql);
+            $sql->bind_param("ssssssss", $Email, $FirstName,$MiddleName,$LastName,$Mobile,$Residence,$Occupation, $Gender);
+            $sql->execute();
+            $membberid = $sql->insert_id;
+            LogInFile("New Member", $_POST, $sql);
+
+            $sql1 = "insert into SRC_Group_Members (MemberID,GroupID) values (?,select GroupID from SRC_Groups where GroupName = ?)";
+            $sql1 = $dblink->prepare($sql1);
+            $sql1->bind_param("ss", $membberid, $Group);
+            $sql1->execute();
+            $countx += 1;
+        }
+        $_SESSION['notes'] = "$countx Members have been successfully uploaded.";
+
+
+        break;
+
+    case "BULK_INCOME":
+
+
+            $jsondata = $_POST['jsondata'];
+            $arr = array();
+            $arr = json_decode($jsondata);
+
+            //    ECHO $_SESSION['testing4'] .= '................................................................................................<br/>';
+
+
+            $countx = 0;
+            $esistingCount = 0;
+
+            foreach ($arr as $x) {
+
+                $reference = $x[0].'-'.$x[1].' -'.$x[3].' '.$x[4].': '.x[2];
+                $Member = $x[0];
+                $Member = execQuery("select IFNULL(MemberID,0) from SRC_Members where concat(FirstName,' ',MiddleName,' ',LastName) = '$Member'",true);
+
+                $Mobile = $x[1];
+                $amount = $x[2];
+                $TransactionType = $x[3];
+                $TransactionType = execQuery("SELECT TransactionTypeID FROM SRC_TransactionTypes where TransactionType = '$TransactionType'",true);
+
+                $channel = $x[4];
+                $channel = execQuery("Select ChannelID From SRC_PaymentChannels where ChannelName = '$channel' ", true);
+                $Confirmed = $x[5];
+                $Notes = $x[6];
+
+
+
+
+                if ($amount > 0) {
+                    $sql = "insert into SRC_Transactions (TransactionMemberID,TransactionTypeID,TransactionAmount , TransactionChannelID,TransactionRef , TransactionDetails ) 
+                                                  values(?,?,?,?,?,?)";
+                    $sql = $dblink->prepare($sql);
+                    $sql->bind_param("ssssss", $Member,$TransactionType, $amount, $channel, $reference, $Notes);
+                    $sql->execute();
+                    LogInFile("New Transaction", $_POST, $sql->error);
+                }
+                // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
+                $countx += 1;
+            }
+        $_SESSION['notes'] = "$countx Transactions have been successfully uploaded.";
+
+
+        break;
+
+    case "BULK_EXPENSE":
+
+
+        $jsondata = $_POST['jsondata'];
+        $arr = array();
+        $arr = json_decode($jsondata);
+
+        //    ECHO $_SESSION['testing4'] .= '................................................................................................<br/>';
+
+
+        $countx = 0;
+        $esistingCount = 0;
+
+        foreach ($arr as $x) {
+
+            $reference = $x[0].'-'.$x[1].' -'.$x[3].' '.$x[4].': '.x[2];
+            $Member = $x[0];
+            $Member = execQuery("select IFNULL(MemberID,0) from SRC_Members where concat(FirstName,' ',MiddleName,' ',LastName) = '$Member'",true);
+
+            $Mobile = $x[1];
+            $amount = $x[2];
+            $TransactionType = $x[3];
+            $TransactionType = execQuery("SELECT TransactionTypeID FROM SRC_TransactionTypes where TransactionType = '$TransactionType'",true);
+
+            $channel = $x[4];
+            $channel = execQuery("Select ChannelID From SRC_PaymentChannels where ChannelName = '$channel' ", true);
+            $Confirmed = $x[5];
+            $Notes = $x[6];
+
+
+
+
+            if ($amount > 0) {
+                $sql = "insert into SRC_Transactions (TransactionMemberID,TransactionTypeID,TransactionAmount , TransactionChannelID,TransactionRef , TransactionDetails ) 
+                                                  values(?,?,?,?,?,?)";
+                $sql = $dblink->prepare($sql);
+                $sql->bind_param("ssssss", $Member,$TransactionType, $amount, $channel, $reference, $Notes);
+                $sql->execute();
+                LogInFile("New Transaction", $_POST, $sql->error);
+            }
+            // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
+            $countx += 1;
+        }
+        $_SESSION['notes'] = "$countx Transactions have been successfully uploaded.";
+
+
+        break;
+
 
 }
 
@@ -191,7 +365,9 @@ function randomPassword($length = 8, $add_dashes = false, $available_sets = 'ud'
 
 function LogInFile($Title,$data,$sql)
 {
-    file_put_contents("ims-log-$dateExt.txt", date("Y-m-d H:i(worry)") . $Title ."  " . print_r($data, true) . " Query: " . $sql . "\n", FILE_APPEND);
+    $dateExt = date("Y-m-d");
+    file_put_contents("ims-log-$dateExt.txt", date("Y-m-d H:i(worry)") . $Title ."  " . print_r($data, true) . " Query: " . print_r($sql) . "\n", FILE_APPEND);
+    //file_put_contents("log.txt", date("Y-m-d H:i(worry)") . $Title ."  " . print_r($data, true) . " Query: " . $sql . "\n", FILE_APPEND);
 }
 
 ?>

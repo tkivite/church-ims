@@ -15,6 +15,8 @@ $target_page = $_SESSION['targetpage'];
 $actionsBar .= '<div class="gridActionsBar" id="addElements">';
 $actionsBar .='<button type="button" value ="New Member" name="addButton" class="btn-primary btn-sm addButton gridPrimaryButton">New Member</button>';
 $actionsBar .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+$actionsBar .='<button type="button" value ="Bulk Member" name="addButton" class="btn-primary btn-sm addButton gridPrimaryButton">Bulk Creation</button>';
+$actionsBar .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 $actionsBar .= '</div>'; 
 
 $pagination ='';

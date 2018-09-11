@@ -101,8 +101,10 @@ switch ($id) {
         elseif ($sub_id == 'view') {    //Inner loading pages
         include('../../administration/view/memberView.php');
         //include('../../administration/php/userForm.php');
-        } elseif ($sub_id == '1') {
+        } /*elseif ($sub_id == '1') {
         include('../../administration/form/memberForm.php');
+        }*/elseif ($sub_id == '1') {
+            include('../../excelbulk/bulkMembers.php');
         }
         break;   
         
@@ -275,8 +277,10 @@ switch ($id) {
         elseif ($sub_id == 'view') {    //Inner loading pages
             include('../../finance/view/transactionListView.php');
 
-        } elseif ($sub_id == '1') {
+        } /*elseif ($sub_id == '1') {
             include('../../finance/form/moneyin.php');
+        }*/elseif ($sub_id == '1') {
+            include('../../excelbulk/bulkIncome.php');
         }
         break;
 
@@ -292,8 +296,10 @@ switch ($id) {
         elseif ($sub_id == 'view') {    //Inner loading pages
             include('../../finance/view/transactionListView.php');
 
-        } elseif ($sub_id == '1') {
+        } /*elseif ($sub_id == '1') {
             include('../../finance/form/moneyout.php');
+        }*/elseif ($sub_id == '1') {
+            include('../../excelbulk/bulkExpense.php');
         }
         break;
 
