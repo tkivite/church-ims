@@ -1099,7 +1099,7 @@ function addEvent(mode, modeType) {
     $('.btn-group').fadeOut();
     $('#listHeading').fadeOut();
     $('.box').fadeOut();
-    //data: 'sid=' + $('#sub_page').val() + '&id=' + $('#page_id').val() + '&mode=' + mode,
+    console.log("data:"+ 'sid=' + $('#sub_page').val() + '&id=' + $('#page_id').val() + '&mode=' + mode);
     // data: 'sid=1&id=' + $('#page_id').val() + '&mode=' + mode,
     var page_id = $('#this_page_id').val();
 
@@ -1194,7 +1194,7 @@ $(document).on('click', '.addButton', function () {
     if (btnValue == 'Add New MSISDN' || btnValue == 'Add B2C Setting' || btnValue == 'Allocate Funds') {
         addEvent('1'); //Single payment upload
     } else if (
-        btnValue == 'User Upload' || btnValue == 'Program Upload' || btnValue == 'Organisation Upload' || btnValue == 'Add Business Customer' || btnValue == 'Add Business Customer'
+        btnValue == 'Bulk Member' || btnValue == 'Bulk Expense' || btnValue == 'Bulk Income' || btnValue == 'Bulk Transaction' || btnValue == 'Add Business Customer'
 
     ) {
         addEvent('2');

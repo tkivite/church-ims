@@ -1,0 +1,32 @@
+2018-09-24 16:13(12018Mon, 24 Sep 2018 16:13:58 +0300Mon, 24 Sep 2018 16:13:58 +030018)New Transaction  Array
+(
+    [cell] => 
+    [jsondata] => [[\"Mercy Ndanu Haggai\",\"000000\",\"100\",\"Mileage Reimbursments--(Expense)\",\"Cash\",\"Confirmed\",\"yES\"],[\"Samuel Maingi Kimuli\",\"236900000\",\"500\",\"Mileage Reimbursments--(Expense)\",\"Cash\",\"Confirmed\",\"thanks\"]]
+    [collcount] => 8
+    [permission] => 
+)
+ Query: 1
+2018-09-24 16:13(12018Mon, 24 Sep 2018 16:13:58 +0300Mon, 24 Sep 2018 16:13:58 +030018)New Transaction  Array
+(
+    [cell] => 
+    [jsondata] => [[\"Mercy Ndanu Haggai\",\"000000\",\"100\",\"Mileage Reimbursments--(Expense)\",\"Cash\",\"Confirmed\",\"yES\"],[\"Samuel Maingi Kimuli\",\"236900000\",\"500\",\"Mileage Reimbursments--(Expense)\",\"Cash\",\"Confirmed\",\"thanks\"]]
+    [collcount] => 8
+    [permission] => 
+)
+ Query: 1
+2018-09-24 16:35(12018Mon, 24 Sep 2018 16:35:22 +0300Mon, 24 Sep 2018 16:35:22 +030018)New Member  Array
+(
+    [cell] => 
+    [jsondata] => [[\"Titus\",\"N\",\"Kivite\",\"254725475051\",\"tkivite@gmail.com\",\"Ruiru\",\"S/Engineer\",\"Male\",\"Men Group 1\"],[\"\",null,null,null,null,null,null,null,null]]
+    [collcount] => 8
+    [permission] => 
+)
+ Query: 1
+2018-09-24 16:59(12018Mon, 24 Sep 2018 16:59:11 +0300Mon, 24 Sep 2018 16:59:11 +030018)New Member  Array
+(
+    [cell] => 
+    [jsondata] => [[\"Risper\",\"Kendi\",\"Titus\",\"254722642753\",\"kendititus@gmail.com\",\"Ruiru\",\"Nurse\",\"Female\",\"Men Group 1\"]]
+    [collcount] => 8
+    [permission] => 
+)
+ Query: 1

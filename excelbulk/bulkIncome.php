@@ -99,10 +99,10 @@ $budgets .= "]";
 ?>
 <form method="POST" id="a" action="" class="newEntry" >
     <label>
-        <span>Enter Number of records:</span>
-        <input type="text" name="numrows" id="numrows" value="" class="required" placeholder="Enter number of records you wnat to create">
+        <span>Enter Number of rows:</span>
+        <input type="text" name="numrows" id="numrows" value="" class="required" placeholder="Enter number of rows">
 
-        <input type="submit" value="Load Records" name="submit" class="Buttonsearch gridSecondaryButton3">
+        <input type="submit" value="Load Rows" name="submit" class="Buttonsearch gridSecondaryButton3">
     </label>
 </form>
 
@@ -173,7 +173,7 @@ $budgets .= "]";
             stretchH: 'all',
             // width: 1200,
             autoWrapRow: true,
-            height: 441,
+            height: 300,
             maxRows: 22,
             rowHeaders: true,
             colHeaders: [
@@ -266,7 +266,7 @@ $budgets .= "]";
             stretchH: 'all',
             // width: 1200,
             autoWrapRow: true,
-            height: 441,
+            height: 300,
             maxRows: 22,
             rowHeaders: true,
             colHeaders: [

@@ -38,6 +38,24 @@ if (preg_match('/^[-a-zA-Z0-9_ .]+$/', $_GET['f']) || empty($_GET['f'])) {
 }
 
 switch (strtoupper($f)) {
+
+    case "AUTOCOMPLETE_AJAX":
+
+        $columnName   = strval($_POST['serchkey']);
+        $keyword      = strval($_POST['query']);
+        $search_param = "{$keyword}%";
+        $sql          = $dblink->prepare("select concat(FirstName,' ',MiddleName,' ',LastName)Member from SRC_Members WHERE FirstName LIKE ? or LastName LIKE ?");
+        $sql ->bind_param("ss", $search_param,$search_param);
+        $sql->execute();
+        $result = $sql->get_result();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $countryResult[] = $row['Member'];
+            }
+            echo json_encode($countryResult);
+        }
+        //$dblink->close();
+        break;
     case "GROUPTYPES":
         if ($_POST['cell'] != '') {
             $sql = "update SRC_GroupTypes set GroupType=?, Description=? where GroupTypeID = ? ";
@@ -70,9 +88,9 @@ switch (strtoupper($f)) {
 
             $_SESSION[notes] = "Group Updated Successfully";
         } else {
-            $sql = "insert into SRC_GroupTypes (GroupName,GroupTypeID,GroupLabel ) values(?,?,?)";
+            $sql = "insert into SRC_Groups (GroupName,GroupTypeID,GroupLabel ) values(?,?,?)";
             $sql = $dblink->prepare($sql);
-            $sql->bind_param("sss", $GroupName, $GroupTypeID,$GroupLabel);
+            $sql->bind_param("sss", $GroupName, $GroupType,$GroupLabel);
             $sql->execute();
             LogInFile("New Record", $_POST, $sql);
             // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
@@ -118,22 +136,15 @@ switch (strtoupper($f)) {
             $_SESSION[notes] = "Member Updated Successfully";
         } else {
 
-            for ($i=0;$i < $recordscount; $i++) {
-
-                $amount = $_POST["amount_" . $i];
-                $channel = $_POST["channel_" . $i];
-                if($amount > 0 ) {
-                    $sql = "insert into SRC_Transactions (TransactionTypeID,TransactionAmount , TransactionChannelID,TransactionRef , TransactionDetails ) 
-                                                  values(?,?,?,?,?)";
-                    $sql = $dblink->prepare($sql);
-                    $sql->bind_param("sssss", $TransactionType, $amount, $channel, $reference, $details );
-                    $sql->execute();
-
-                    LogInFile("New Transaction", $_POST, $sql->error);
-                }
-                // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
-
-            }
+            $user = $_SESSION['user_id'];
+            // $timestamp = iso8601_to_timestamp('" . $TimeOfTransaction . "',  'yyyy-mm-dd h-m-s');
+            $sql = "insert into SRC_Transactions (TransactionMemberID,TransactionTypeID,TransactionAmount , TransactionChannelID,TransactionRef , TransactionDetails, CreatedBy,Party ) 
+                                                  values(?,?,?,?,?,?,?,?)";
+            $sql = $dblink->prepare($sql);
+            $sql->bind_param("ssssssss", $member,$transactionType, $amount, $channel, $reference, $notes,$user,$party);
+            $sql->execute();
+            // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
+            $_SESSION[notes] = "Transaction Posted Successfully";
 
         }
         break;
@@ -149,13 +160,15 @@ switch (strtoupper($f)) {
 
             $_SESSION[notes] = "Member Updated Successfully";
         } else {
-            $sql = "insert into SRC_Members (Email,FirstName , MiddleName,LastName , Mobile , Residence , Occupation , Gender) values(?,?,?,?,?,?,?,?)";
+            $user = $_SESSION['user_id'];
+           // $timestamp = iso8601_to_timestamp('" . $TimeOfTransaction . "',  'yyyy-mm-dd h-m-s');
+            $sql = "insert into SRC_Transactions (TransactionMemberID,TransactionTypeID,TransactionAmount , TransactionChannelID,TransactionRef , TransactionDetails, CreatedBy,Party ) 
+                                                  values(?,?,?,?,?,?,?,?)";
             $sql = $dblink->prepare($sql);
-            $sql->bind_param("ssssssss", $Email, $FirstName,$MiddleName,$LastName,$Mobile,$Residence,$Occupation, $Gender);
+            $sql->bind_param("ssssssss", $member,$transactionType, $amount, $channel, $reference, $notes,$user,$party);
             $sql->execute();
-            LogInFile("New Member", $_POST, $sql);
             // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
-
+            $_SESSION[notes] = "Transaction Posted Successfully";
 
         }
         break;
@@ -191,13 +204,10 @@ switch (strtoupper($f)) {
 
     case "BULK_MEMBER_CREATION":
 
-        $jsondata = $_POST['jsondata'];
+        $jsondata = $_REQUEST['jsondata'];
+        $user = $_SESSION['user_id'];
         $arr = array();
         $arr = json_decode($jsondata);
-
-    //    ECHO $_SESSION['testing4'] .= '................................................................................................<br/>';
-
-
         $countx = 0;
         $esistingCount = 0;
 
@@ -206,25 +216,26 @@ switch (strtoupper($f)) {
             $MiddleName = $x[1];
             $LastName = $x[2];
             $Mobile = $x[3];
-            $Mobile = mysqli_escape_string(str_replace(" ", "", str_replace("+", "", trim($Mobile))));
+            $Mobile = str_replace(" ", "", str_replace("+", "", trim($Mobile)));
             $Email = $x[4];
             $Residence = $x[5];
             $Occupation = $x[6];
             $Gender = $x[7];
             $Group = $x[8];
-
-            $sql = "insert into SRC_Members (Email,FirstName , MiddleName,LastName , Mobile , Residence , Occupation , Gender) values (?,?,?,?,?,?,?,?)";
+if($FirstName != '' && $LastName != '' && $Mobile != ''){
+            $sql = "insert into SRC_Members (Email,FirstName , MiddleName,LastName , Mobile , Residence , Occupation , Gender,CreatedBy) values (?,?,?,?,?,?,?,?,?)";
             $sql = $dblink->prepare($sql);
-            $sql->bind_param("ssssssss", $Email, $FirstName,$MiddleName,$LastName,$Mobile,$Residence,$Occupation, $Gender);
+            $sql->bind_param("sssssssss", $Email, $FirstName,$MiddleName,$LastName,$Mobile,$Residence,$Occupation, $Gender,$user);
             $sql->execute();
             $membberid = $sql->insert_id;
             LogInFile("New Member", $_POST, $sql);
 
-            $sql1 = "insert into SRC_Group_Members (MemberID,GroupID) values (?,select GroupID from SRC_Groups where GroupName = ?)";
+            $sql1 = "insert into SRC_GroupMembers (MemberID,GroupID) values (?,(select GroupID from SRC_Groups where GroupName = ?))";
             $sql1 = $dblink->prepare($sql1);
             $sql1->bind_param("ss", $membberid, $Group);
             $sql1->execute();
             $countx += 1;
+            }
         }
         $_SESSION['notes'] = "$countx Members have been successfully uploaded.";
 
@@ -234,19 +245,16 @@ switch (strtoupper($f)) {
     case "BULK_INCOME":
 
 
-            $jsondata = $_POST['jsondata'];
+            $user = $_SESSION['user_id'];
+            $jsondata = $_REQUEST['jsondata'];
             $arr = array();
             $arr = json_decode($jsondata);
-
-            //    ECHO $_SESSION['testing4'] .= '................................................................................................<br/>';
-
-
             $countx = 0;
             $esistingCount = 0;
 
             foreach ($arr as $x) {
 
-                $reference = $x[0].'-'.$x[1].' -'.$x[3].' '.$x[4].': '.x[2];
+                $reference = $x[0].'-'.$x[1].' -'.$x[3].' '.$x[4].': '.$x[2];
                 $Member = $x[0];
                 $Member = execQuery("select IFNULL(MemberID,0) from SRC_Members where concat(FirstName,' ',MiddleName,' ',LastName) = '$Member'",true);
 
@@ -260,21 +268,26 @@ switch (strtoupper($f)) {
                 $Confirmed = $x[5];
                 $Notes = $x[6];
 
+               // echo $reference;
+
 
 
 
                 if ($amount > 0) {
-                    $sql = "insert into SRC_Transactions (TransactionMemberID,TransactionTypeID,TransactionAmount , TransactionChannelID,TransactionRef , TransactionDetails ) 
-                                                  values(?,?,?,?,?,?)";
+
+                    $sql = "insert into SRC_Transactions (TransactionMemberID,TransactionTypeID,TransactionAmount , TransactionChannelID,TransactionRef , TransactionDetails,CreatedBy ) 
+                                                  values(?,?,?,?,?,?,?)";
                     $sql = $dblink->prepare($sql);
-                    $sql->bind_param("ssssss", $Member,$TransactionType, $amount, $channel, $reference, $Notes);
+                    $sql->bind_param("sssssss", $Member,$TransactionType, $amount, $channel, $reference, $Notes,$user);
                     $sql->execute();
-                    LogInFile("New Transaction", $_POST, $sql->error);
+                    $countx += 1;
+                  // LogInFile("New Transaction", $_POST, $sql->error);
                 }
                 // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
-                $countx += 1;
+
             }
         $_SESSION['notes'] = "$countx Transactions have been successfully uploaded.";
+        //echo $_SESSION['notes'];
 
 
         break;
@@ -282,19 +295,16 @@ switch (strtoupper($f)) {
     case "BULK_EXPENSE":
 
 
-        $jsondata = $_POST['jsondata'];
+        $user = $_SESSION['user_id'];
+        $jsondata = $_REQUEST['jsondata'];
         $arr = array();
         $arr = json_decode($jsondata);
-
-        //    ECHO $_SESSION['testing4'] .= '................................................................................................<br/>';
-
-
         $countx = 0;
         $esistingCount = 0;
 
         foreach ($arr as $x) {
 
-            $reference = $x[0].'-'.$x[1].' -'.$x[3].' '.$x[4].': '.x[2];
+            $reference = $x[0].'-'.$x[1].' -'.$x[3].' '.$x[4].': '.$x[2];
             $Member = $x[0];
             $Member = execQuery("select IFNULL(MemberID,0) from SRC_Members where concat(FirstName,' ',MiddleName,' ',LastName) = '$Member'",true);
 
@@ -308,21 +318,25 @@ switch (strtoupper($f)) {
             $Confirmed = $x[5];
             $Notes = $x[6];
 
+            // echo $reference;
+
 
 
 
             if ($amount > 0) {
-                $sql = "insert into SRC_Transactions (TransactionMemberID,TransactionTypeID,TransactionAmount , TransactionChannelID,TransactionRef , TransactionDetails ) 
-                                                  values(?,?,?,?,?,?)";
+
+                $sql = "insert into SRC_Transactions (TransactionMemberID,TransactionTypeID,TransactionAmount , TransactionChannelID,TransactionRef , TransactionDetails, CreatedBy ) 
+                                                  values(?,?,?,?,?,?,?)";
                 $sql = $dblink->prepare($sql);
-                $sql->bind_param("ssssss", $Member,$TransactionType, $amount, $channel, $reference, $Notes);
+                $sql->bind_param("sssssss", $Member,$TransactionType, $amount, $channel, $reference, $Notes,$user);
                 $sql->execute();
-                LogInFile("New Transaction", $_POST, $sql->error);
+                // LogInFile("New Transaction", $_POST, $sql->error);
             }
             // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
             $countx += 1;
         }
         $_SESSION['notes'] = "$countx Transactions have been successfully uploaded.";
+        //echo $_SESSION['notes'];
 
 
         break;

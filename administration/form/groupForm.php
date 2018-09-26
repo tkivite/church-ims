@@ -43,11 +43,14 @@ if (isset($_GET[cell])) {
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="name">Group Type:</label>
+
                 <div class="col-sm-10">
-                    <input type="text" name="GroupType" id="GroupType" class="form-control required"
-                           value="<?php
-                           echo $GroupType;
-                           ?>" maxlength="255" placeholder="enter group Type">
+                    <?php $query = 'Select GroupTypeID,GroupType From SRC_GroupTypes  order by GroupTypeID Asc';
+
+                    $select = createSelect('GroupType','Select Group Type',$query,true,$GroupType);
+                    echo  $select;
+                    ?>
+
                 </div>
             </div>
 

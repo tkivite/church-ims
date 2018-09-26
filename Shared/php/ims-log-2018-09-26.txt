@@ -1,0 +1,9 @@
+2018-09-26 00:12(32018Wed, 26 Sep 2018 00:12:02 +0300Wed, 26 Sep 2018 00:12:02 +030018)New Record  Array
+(
+    [GroupName] => Ladies Grp1
+    [GroupType] => 2
+    [GroupLabel] => LG1
+    [cell] => 
+    [permission] => 
+)
+ Query: 1

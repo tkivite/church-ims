@@ -1,0 +1,24 @@
+2018-09-25 21:52(22018Tue, 25 Sep 2018 21:52:27 +0300Tue, 25 Sep 2018 21:52:27 +030018)New Transaction  Array
+(
+    [TransactionType] => 66
+    [party] => Titus N Kivite
+    [member] => 
+    [Channel] => 1
+    [Amount] => 10000
+    [TransactionTime] => 2018-09-05T10:10
+    [reference] => titheSep
+    [details] => titheSep 
+    [cell] => 
+    [recordscount] => 
+    [permission] => 
+)
+ Query: 1
+2018-09-25 23:43(22018Tue, 25 Sep 2018 23:43:30 +0300Tue, 25 Sep 2018 23:43:30 +030018)New Record  Array
+(
+    [GroupName] => Ladies Group2
+    [GroupType] => 2
+    [GroupLabel] => Ladies1
+    [cell] => 
+    [permission] => 
+)
+ Query: 1
