@@ -47,12 +47,14 @@ $datat = addcslashes($data0, "'&^`!@#%");
 $confirmed = "['Confirmed','Not Confirmed']";
 
 //Get counties
+$groupDropDown= '<option value='/0/'>Select Group</option>';
 $sql1 = "Select GroupID ,GroupName, `GroupTypeID`, `GroupLabel` from SRC_Groups order by 2 asc";
 $res1 = $dblink->query($sql1);
 
 $groups = "[";
 while ($row1 = mysqli_fetch_array($res1)) {
     $groups .= "'" . $row1[1] . "',";
+    $groupDropDown .= '<option value=' .  $row1[0] . '>'.$row1[1].'</option>';
 }
 $groups .= "]";
 
@@ -104,35 +106,48 @@ $budgets .= "]";
         <h3 class="panel-title">
 
 
-            Add Members in Bulk
-        </h3>
+            Add Members to Group
+            </h3>
     </div>
     <div class="box-body">
 
-        <form method="POST" id="a" action="" class="newEntry panel-title" >
+<form method="POST" id="a" action="" class="newEntry panel-title" >
 
 
+    <div class="col-sm-5">
 
-            <div class="col-sm-7">
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="name">Select Group:</label>
+            <div class="col-sm-8">
+        <select class="form-control required" name="selectGroup" id="selectGroup">
+            <?php     echo $groupDropDown;     ?>
 
 
-                <div class="form-group">
-                    <label class="control-label col-sm-4" for="name">Number of Members:</label>
-                    <div class="col-sm-4">
-                        <input type="text" name="numrows" id="numrows" value="" class=" form-control required" placeholder="Enter number of members to be added">
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="submit" value="Load Rows" name="submit" class="Buttonsearch gridSecondaryButton3"></div>
-                </div>
+        </select>
+
+            </div></div>
+
+    </div>
+    <div class="col-sm-7">
+
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="name">Number of Members:</label>
+            <div class="col-sm-4">
+           <input type="text" name="numrows" id="numrows" value="" class=" form-control required" placeholder="Enter number of members to be added">
             </div>
+            <div class="col-sm-4">
+                <input type="submit" value="Load Rows" name="submit" class="Buttonsearch gridSecondaryButton3"></div>
+    </div>
+    </div>
 
-        </form>
+</form>
         &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
 
 
-        <form name="BULK_MEMBER_CREATION" method="POST" title="" class="HOUPTATEEXCEL" style="display: block;">
+<form name="BULK_GROUP_MEMBERS_CREATION" method="POST" title="" class="HOUPTATEEXCEL" style="display: block;">
 
-
+<input type="hidden" name="groupid" id="groupid" value="" class="required" placeholder="Enter members group">
     <div id="hot" style="width: 100%; height: 70%; overflow: hidden; z-index: 0"></div>
     <script>
         var dataObject =<?php echo $datat; ?>;
@@ -348,6 +363,14 @@ $budgets .= "]";
             });
 
         });
+        $("#selectGroup").change(function (event) {
+            //alert('Testing here');
+            console.log($("#selectGroup").val());
+           $("#groupid").val($("#selectGroup").val());
+        });
+
+
+
 
     </script>
     <style>
@@ -373,5 +396,5 @@ $budgets .= "]";
         <input type="hidden" id="collcount" name="collcount" value="<?= $collcount; ?>"/>
     </span>
 </form>
-    </div>
-</div>
+    </div></div>
+

@@ -45,16 +45,9 @@ $data0 = json_encode($vals);
 $datat = addcslashes($data0, "'&^`!@#%");
 
 $confirmed = "['Confirmed','Not Confirmed']";
+$bornAgain = "['YES','NO']";
+$visitorType = "['Looking for Church','Just Visiting']";
 
-//Get counties
-$sql1 = "Select GroupID ,GroupName, `GroupTypeID`, `GroupLabel` from SRC_Groups order by 2 asc";
-$res1 = $dblink->query($sql1);
-
-$groups = "[";
-while ($row1 = mysqli_fetch_array($res1)) {
-    $groups .= "'" . $row1[1] . "',";
-}
-$groups .= "]";
 
 $gender = "['Male','Female']";
 /*
@@ -104,7 +97,7 @@ $budgets .= "]";
         <h3 class="panel-title">
 
 
-            Add Members in Bulk
+            Add Visitors in Bulk
         </h3>
     </div>
     <div class="box-body">
@@ -117,9 +110,9 @@ $budgets .= "]";
 
 
                 <div class="form-group">
-                    <label class="control-label col-sm-4" for="name">Number of Members:</label>
+                    <label class="control-label col-sm-4" for="name">Number of Visitors:</label>
                     <div class="col-sm-4">
-                        <input type="text" name="numrows" id="numrows" value="" class=" form-control required" placeholder="Enter number of members to be added">
+                        <input type="text" name="numrows" id="numrows" value="" class=" form-control required" placeholder="Enter number of visitors to be added">
                     </div>
                     <div class="col-sm-4">
                         <input type="submit" value="Load Rows" name="submit" class="Buttonsearch gridSecondaryButton3"></div>
@@ -130,7 +123,7 @@ $budgets .= "]";
         &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
 
 
-        <form name="BULK_MEMBER_CREATION" method="POST" title="" class="HOUPTATEEXCEL" style="display: block;">
+        <form name="BULK_VISITOR_CREATION" method="POST" title="" class="HOUPTATEEXCEL" style="display: block;">
 
 
     <div id="hot" style="width: 100%; height: 70%; overflow: hidden; z-index: 0"></div>
@@ -194,9 +187,18 @@ $budgets .= "]";
                     source: <?php echo $gender; ?>
                 },
                 {
-                    data: 'Group',
+                    data: 'BornAgain',
                     type: 'dropdown',
-                    source: <?php echo $groups; ?>
+                    source: <?php echo $bornAgain; ?>
+                },
+                {
+                    data: 'VisitorType',
+                    type: 'dropdown',
+                    source: <?php echo $visitorType; ?>
+                },
+                {
+                    data: 'Notes',
+                    type: 'text'
                 }
             ],
             stretchH: 'all',
@@ -214,7 +216,9 @@ $budgets .= "]";
                 'Residence',
                 'Occupation',
                 'Gender',
-                'Group'
+                'BornAgain',
+                'VisitorType',
+                'Notes'
 
             ],
             fixedRowsTop: 0,
@@ -295,9 +299,18 @@ $budgets .= "]";
                                 source: <?php echo $gender; ?>
                             },
                             {
-                                data: 'Group',
+                                data: 'BornAgain',
                                 type: 'dropdown',
-                                source: <?php echo $groups; ?>
+                                source: <?php echo $bornAgain; ?>
+                            },
+                            {
+                                data: 'VisitorType',
+                                type: 'dropdown',
+                                source: <?php echo $visitorType; ?>
+                            },
+                            {
+                                data: 'Notes',
+                                type: 'text'
                             }
                         ],
                         stretchH: 'all',
@@ -315,7 +328,9 @@ $budgets .= "]";
                             'Residence',
                             'Occupation',
                             'Gender',
-                            'Group'
+                            'BornAgain',
+                            'VisitorType',
+                            'Notes'
                         ],
                         fixedRowsTop: 0,
                         fixedColumnsLeft: 5,

@@ -27,7 +27,7 @@ $actionsBar .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 $actionsBar .= '</div>';
 
 $res = generateGrid("Transactions", "view", $query, true, true, true, false, false, false,$actionsBar,array("search","status","date"),false);
-echo 'test'.($_SESSION['arrr']);
+//echo    'Test -'.$_SESSION[notes];
 echo $res;
 
  

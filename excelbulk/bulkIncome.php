@@ -97,17 +97,39 @@ $budgets .= "]";
 //echo $datat;
 */
 ?>
-<form method="POST" id="a" action="" class="newEntry" >
-    <label>
-        <span>Enter Number of rows:</span>
-        <input type="text" name="numrows" id="numrows" value="" class="required" placeholder="Enter number of rows">
-
-        <input type="submit" value="Load Rows" name="submit" class="Buttonsearch gridSecondaryButton3">
-    </label>
-</form>
+<div class="box box-primary">
+    <div class="panel-heading panel-primary">
+        <h3 class="panel-title">
 
 
-<form name="BULK_INCOME" method="POST" title="" class="HOUPTATEEXCEL" style="display: block;">
+           Income in Bulk
+        </h3>
+    </div>
+    <div class="box-body">
+
+        <form method="POST" id="a" action="" class="newEntry panel-title" >
+
+
+            <div class="col-sm-7">
+
+
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="name">Number of Records:</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="numrows" id="numrows" value="" class=" form-control required" placeholder="Enter number of records to be added">
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="submit" value="Load Rows" name="submit" class="Buttonsearch gridSecondaryButton3"></div>
+                </div>
+            </div>
+
+        </form>
+        &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+
+
+
+
+        <form name="BULK_INCOME" method="POST" title="" class="HOUPTATEEXCEL" style="display: block;">
 
 
     <div id="hot" style="width: 100%; height: 70%; overflow: hidden; z-index: 0"></div>
@@ -331,3 +353,4 @@ $budgets .= "]";
     </span>
 </form>
 
+    </div></div>

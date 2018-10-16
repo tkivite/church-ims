@@ -553,13 +553,6 @@ $(document).ready(function () {
     });
 });
 
-
-
-
-
-
-
-
 function loadtabDefault(wrapperId) {
 
     var theUrl = wrapperId.substring(1);
@@ -599,8 +592,6 @@ function loadtabDefault(wrapperId) {
 
 
 }
-
-
 
 $(document).on("click", ".loadDashboardLink", function (e) {
 
@@ -908,7 +899,6 @@ $(document).on('click', '#dateFiltersBtn', function (e) {
 
 });
 
-
 $(document).on('click', '#reloadData', function (e) {
 
 
@@ -930,9 +920,6 @@ $(document).on('click', '#reloadData', function (e) {
 
     return false;
 });
-
-
-
 
 $(document).on('click', '#dataFiltersBtn', function (e) {
     var endDate = $("#daterange-btn").data('daterangepicker').endDate.format('YYYY-MM-DD');
@@ -1089,7 +1076,6 @@ function getContents(theUrl, linkref) {
     return false;
 }
 
-
 function addEvent(mode, modeType) {
 
     $('#example1_wrapper').fadeOut();
@@ -1117,7 +1103,6 @@ function addEvent(mode, modeType) {
         }
     });
 }
-
 
 function editEvent2(cell) {
     $('#dataTable_wrapper').fadeOut();
@@ -1160,9 +1145,6 @@ function displayRowDetails(result, tr, row) {
 
 }
 
-
-
-
 function exportXls(dtype) {
     window.open('Shared/php/excel_export.php?id=' + dtype + "&program_id=" + $("[name='program_id']").val(), 'Export');
 }
@@ -1194,12 +1176,12 @@ $(document).on('click', '.addButton', function () {
     if (btnValue == 'Add New MSISDN' || btnValue == 'Add B2C Setting' || btnValue == 'Allocate Funds') {
         addEvent('1'); //Single payment upload
     } else if (
-        btnValue == 'Bulk Member' || btnValue == 'Bulk Expense' || btnValue == 'Bulk Income' || btnValue == 'Bulk Transaction' || btnValue == 'Add Business Customer'
+        btnValue == 'Bulk Member' || btnValue == 'Bulk Expense' || btnValue == 'Bulk Income' || btnValue == 'Bulk Transaction' || btnValue == 'Bulk Visitor'
 
     ) {
         addEvent('2');
-    } else if (btnValue == 'Upload Businesses') {
-        addEvent('2', '2');
+    } else if (btnValue == 'Bulk Group Members' ) {
+        addEvent('3');
     } else {
 
         addEvent(0);
@@ -1208,7 +1190,6 @@ $(document).on('click', '.addButton', function () {
 
 
 });
-
 
 $(document).on('click', '.loaddata', function (e) {
 
@@ -1220,10 +1201,6 @@ $(document).on('click', '.loaddata', function (e) {
     $('#reloadedContent').val('YES');
     loadData(linkref);
 });
-
-
-
-
 
 $(document).on('change', ':checkbox[name="primarykey[]"],:checkbox[name="permission[]"]', function () {
 
@@ -1353,7 +1330,6 @@ $(document).on('click', 'td.details-control', function () {
 
 });
 
-
 $(document).on('click', 'button.details-control', function () {
 
 
@@ -1396,10 +1372,6 @@ $(document).on('click', 'button.details-control', function () {
     }
 
 });
-
-
-
-
 
 
 /* $.fn.dataTableExt.afnFiltering.push(

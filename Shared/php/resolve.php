@@ -106,6 +106,8 @@ switch ($id) {
         } elseif ($sub_id == '1') {
             if ($mode == '2') {
                 include('../../excelbulk/bulkMembers.php');
+            } else if ($mode == '3') {
+                include('../../excelbulk/bulkGroupMembers.php');
             } else {
                 include('../../administration/form/memberForm.php');
             }
@@ -163,19 +165,23 @@ switch ($id) {
         // $current_page = "onboarding/list/userList.php"; //Grid loading page
         $current_page = "administration/list/visitorList.php";
         //$current_page = "onboarding/php/tables.html";
-        
-        if ($sub_id == '0') {
-            echo $current_page;
-        }
-        /*elseif ($sub_id == 'view') {    //Inner loading pages
-        include('../../administration/view/visitorView.php');
-      
-        } elseif ($sub_id == '1') {
-        include('../../administration/form/visitorForm.php');
-        }*/
-        break; 
-        
-     case 23:
+
+               if ($sub_id == '0') {
+                   echo $current_page;
+               }
+               elseif ($sub_id == 'view') {    //Inner loading pages
+                   include('../../administration/view/visitorView.php');
+                   //include('../../administration/php/userForm.php');
+               } elseif ($sub_id == '1') {
+                   if ($mode == '2') {
+                       include('../../excelbulk/bulkVisitors.php');
+                   } else {
+                       include('../../administration/form/visitorForm.php');
+                   }
+               }
+               break;
+
+    case 23:
         $current_page = "administration/list/groupTypes.php";
         if ($sub_id == '0') {
             echo $current_page;
