@@ -7,13 +7,18 @@ include("../../Shared/php/functions.php");
 $_SESSION[page_size]=isset($page_size)? $page_size : 100;
 $searchFilter = '';
 
-$query = "Select MemberID as primarykey, `Email`,  `FirstName`,`MiddleName`, `LastName`, `Mobile`, `Residence`, `Occupation`, `Gender` from SRC_Members" ;
+$query = "Select MemberID as primarykey,  concat(`FirstName`,' ',`MiddleName`, ' ',  `LastName`)Names, `Mobile`, `Email`, `Residence`, `Occupation`, `Gender` from SRC_Members" ;
 
 $_SESSION['sqlxls'] = $query;
 $target_page = $_SESSION['targetpage'];
 
 $actionsBar .= '<div class="gridActionsBar" id="addElements">';
 $actionsBar .='<button type="button" value ="New Member" name="addButton" class="btn-primary btn-sm addButton gridPrimaryButton">New Member</button>';
+$actionsBar .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+$actionsBar .='<button type="button" value ="Bulk Member" name="addButton" class="btn-primary btn-sm addButton gridPrimaryButton">Bulk Creation</button>';
+$actionsBar .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+
+$actionsBar .='<button type="button" value ="Bulk Group Members" name="addButton" class="btn-primary btn-sm addButton gridPrimaryButton">Add Members By Group</button>';
 $actionsBar .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 $actionsBar .= '</div>'; 
 

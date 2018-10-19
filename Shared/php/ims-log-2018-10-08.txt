@@ -1,0 +1,30 @@
+2018-10-08 23:31(12018Mon, 08 Oct 2018 23:31:18 +0300Mon, 08 Oct 2018 23:31:18 +030018)New Transaction  Array
+(
+    [TransactionType] => 7
+    [party] => N/A
+    [member] => 
+    [Channel] => 1
+    [Amount] => 530
+    [TransactionTime] => 2018-02-02T00:11
+    [reference] => Refernce
+    [details] => details
+    [cell] => 
+    [recordscount] => 
+    [permission] => 
+)
+ Query: 1
+2018-10-08 23:38(12018Mon, 08 Oct 2018 23:38:46 +0300Mon, 08 Oct 2018 23:38:46 +030018)New Transaction  Array
+(
+    [TransactionType] => 7
+    [party] => None
+    [member] => 
+    [Channel] => 1
+    [Amount] => 530
+    [TransactionTime] => 2018-10-01T11:12
+    [reference] => Reference
+    [details] =>  details
+    [cell] => 
+    [recordscount] => 
+    [permission] => 
+)
+ Query: 1

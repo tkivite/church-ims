@@ -17,130 +17,188 @@ GLOBAL $dblink;
 $title = "New Transaction";
 $cell  = $_GET['cell'];
 if (isset($_GET[cell])) {
-    $sql                  = " SELECT TransactionID as PRIMARY_KEY, TransactionDetails,TransactionAmount,CreatedBy,TransactionConfirmed,TimeCreated,TimeOfTransaction  FROM SRC_Transactions WHERE  TransactionID = '" . $_GET[cell] . "'";
+    $sql                  = " SELECT TransactionID as PRIMARY_KEY, TransactionDetails,TransactionAmount,CreatedBy,TransactionConfirmed,TimeCreated,TimeOfTransaction,TransactionChannelID,TransactionAmount,TransactionMemberID  FROM SRC_Transactions WHERE  TransactionID = '" . $_GET[cell] . "'";
     $result               = $dblink->query($sql);
     $row                  = mysqli_fetch_array($result);
-    $TransactionType      = $row[1];
-    $TransactionAmount    = $row[2];
-    $CreatedBy            = $row[3];
-    $TransactionConfirmed = $row[4];
-    $TimeCreated          = $row[5];
-    $TimeOfTransaction    = $row[6];
-
-
-
+    $transactionType      = $row[1];
+    $transactionAmount    = $row[2];
+    $createdBy            = $row[3];
+    $transactionConfirmed = $row[4];
+    $timeCreated          = $row[5];
+    $timeOfTransaction    = $row[6];
+    $channel              = $row[7];
+    $amount               = $row[8];
+    $member               = $row[9];
     $title = "Edit Transaction";
 }
-
+echo 'Modede--' . $_GET['mode'];
 ?>
 
 
- <div class="box box-primary">
-                            <div class="panel-heading panel-primary">
-                             <h3 class="panel-title"><?php
-echo $title;
-?></h3>
-                             </div>
-                             <div class="box-body">
-
-
-<form name="moneyout" role="form" method="POST" title="" class="form-horizontal" enctype="multipart/form-data" style="display: block;">
-
-
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="name">Transaction Type:</label>
-        <div class="col-sm-10">
-            <?php $query = 'Select TransactionTypeID,`TransactionType` From SRC_TransactionTypes where AccountID in (select AccountID from SRC_Accounts where Category =\'Expense\') ';
-
-             $select = createSelect('TransactionType','SelectTransactionType',$query,true,$TransactionType);
-             echo  $select;
-            ?>
-
-        </div>
+<div class="box box-primary">
+    <div class="panel-heading panel-primary">
+        <h3 class="panel-title"><?php
+            echo $title;
+            ?></h3>
     </div>
+    <div class="box-body">
 
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="DOB">Line Amounts:</label>
-        <div class="col-sm-10">
-            <?php $channels = execQuery('Select ChannelID,ChannelName From SRC_PaymentChannels  order by ChannelID Asc');
-           // var_dump($channels);
-            $recordCount = count($channels);
-            foreach ($channels as $item) {
-            ?>
-            <div class="input-group">
-                <div class="input-group-addon" style="width: 120px !important;background-color: lightgrey;">
-                    <?php echo $item['ChannelName']; ?>
+
+        <form name="moneyout" role="form" method="POST" title="" class="form-horizontal" enctype="multipart/form-data" style="display: block;">
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">Transaction Type:</label>
+                <div class="col-sm-10">
+                    <?php $query = 'Select TransactionTypeID,`TransactionType` From SRC_TransactionTypes where AccountID in (select AccountID from SRC_Accounts where Category =\'Expense\') ';
+
+                    $select = createSelect('transactionType','SelectTransactionType',$query,true,$transactionType);
+                    echo  $select;
+                    ?>
+
                 </div>
-                <input type="number" min="0.00" max="10000.00" step="0.01" name="<?php echo 'channel_'.$item['ChannelID']; ?>" class="form-control" placeholder="Amount">
             </div>
 
-                <?php
 
-            }
-
-
-            ?>
-        </div>
-        <!-- /.input group -->
-    </div>
-
-    <div class="form-group" >
-        <label class="control-label col-sm-2" for="DOB">Time of transaction:</label>
-        <div class="col-sm-10">
-            <input type="datetime-local" name="TransactionTime" id="TransactionTime" class="form-control required" value="<?php
-            echo $TimeOfTransaction
-            ?>" maxlength="255" placeholder="enter term">
-
-        </div>
-        </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">Credit Party:</label>
+                <div class="col-sm-10">
 
 
-    <div class="form-group" >
-        <label class="control-label col-sm-2" for="DOB">Reference:</label>
-        <div class="col-sm-10">
-            <input type="text" name="reference" id="reference" class="form-control required" value="<?php
-            echo $reference
-            ?>" maxlength="255" placeholder="enter reference">
+                    <input type="text" name="party" id="party" class="form-control required" value="<?php
+                    echo $member;
+                    ?>" maxlength="255" placeholder="enter recipient name">
 
-        </div>
-    </div>
+                </div>
+            </div>
 
-    <div class="form-group" >
-        <label class="control-label col-sm-2" for="DOB">Details:</label>
-        <div class="col-sm-10">
-            <textarea name="details" id="details" class="form-control required" placeholder="enter details">
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">Member:</label>
+                <div class="col-sm-10">
+                    <?php $query = 'select MemberID,concat(FirstName,\' \',MiddleName,\' \',LastName)Member from SRC_Members order by 2 asc';
+
+                    $select = createSelect('member','Not Applicable',$query,true,$member);
+                    echo  $select;
+                    ?>
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">Channel:</label>
+                <div class="col-sm-10">
+                    <?php $query = 'Select ChannelID,ChannelName From SRC_PaymentChannels  order by ChannelID Asc';
+
+                    $select = createSelect('channel','Select Channel',$query,true,$channel);
+                    echo  $select;
+                    ?>
+
+                </div>
+            </div>
+
+            <div class="form-group" >
+                <label class="control-label col-sm-2" for="DOB">Amount:</label>
+                <div class="col-sm-10">
+                    <input type="money" name="amount" id="amount" class="form-control required" value="<?php
+                    echo $amount
+                    ?>" maxlength="255" placeholder="enter amount">
+
+                </div>
+            </div>
+
+            <div class="form-group" >
+                <label class="control-label col-sm-2" for="DOB">Time of transaction:</label>
+                <div class="col-sm-10">
+                    <input type="datetime-local" name="transactionTime" id="transactionTime" class="form-control required" value="<?php
+                    echo $timeOfTransaction
+                    ?>" maxlength="255" placeholder="enter time">
+
+                </div>
+            </div>
+
+            <div class="form-group" >
+                <label class="control-label col-sm-2" for="DOB">Reference:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="reference" id="reference" class="form-control required" value="<?php
+                    echo $reference
+                    ?>" maxlength="255" placeholder="enter reference">
+
+                </div>
+            </div>
+
+            <div class="form-group" >
+                <label class="control-label col-sm-2" for="DOB">Details:</label>
+                <div class="col-sm-10">
+            <textarea name="notes" id="notes" class="form-control required" placeholder="enter details">
             <?php
             echo $details
             ?></textarea>
-        </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="email"></label>
+                <div class="col-sm-10">
+
+                    <button type="submit" name="action" value="Save" class="btn-primary btn-sm btn-success gridPrimaryButtonSubmit">Save</button>
+                    <button type="button" name="cancel" value="Cancel" class="btn-primary btn-sm btn-danger gridSecondaryButton">Cancel</button>
+                    <input type="hidden" name="cell" value="<?php
+                    echo $_GET[cell];
+                    ?>"/>
+                    <input type="hidden" name="recordscount" value="<?php
+                    echo $recordCount;
+                    ?>"/>
+
+                </div>
+
+        </form>
+
     </div>
 
+    <script>
+        $(document).ready(function(e) {
+       // var currentEmail = document.getElementById("Email").value;
+       // loadTicketList(currentEmail);
 
 
+        $("#party").typeahead({
 
+            source: function(query, result) {
+                //console.log(this.element);
+                var serchKey = this.$element.attr('id');
+                $.ajax({
+                    url: "Shared/php/process_form.php?f=AUTOCOMPLETE_AJAX",
+                    data: {
+                        serchkey: serchKey,
+                        query: query
+                    },
 
+                    type: "POST",
+                    dataType: "json",
 
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="email"></label>
-        <div class="col-sm-10">
+                    success: function(data) {
+                        result($.map(data, function(item) {
+                            return item;
+                        }));
+                    }
+                });
+            },
 
-            <button type="submit" name="action" value="Save" class="btn-primary btn-sm btn-success gridPrimaryButtonSubmit">Save</button>
-            <button type="button" name="cancel" value="Cancel" class="btn-primary btn-sm btn-danger gridSecondaryButton">Cancel</button>
-            <input type="hidden" name="cell" value="<?php
-    echo $_GET[cell];
-?>"/>
-            <input type="hidden" name="recordscount" value="<?php
-            echo $recordCount;
-            ?>"/>
+            afterSelect: function(item) {
+                var serchKey = this.$element.attr('id');
+                autoCompleteOtherFields(serchKey, item);
+            }
+        });
 
-
-        </div>
-
-    </div>
-
-</form>
-
-</div>
+        });
+        </script>
 
 
 

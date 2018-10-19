@@ -1,0 +1,71 @@
+2018-10-10 15:11(32018Wed, 10 Oct 2018 15:11:17 +0300Wed, 10 Oct 2018 15:11:17 +030018)New Member  Array
+(
+    [groupid] => 2
+    [cell] => 
+    [jsondata] => [[\"Test\",\"Test\",\"TestL\",\"254752525\",\"tkivite@gmail.com\",\"Chokaa\",\"none\",\"Male\",\"Men Group 1\"],[\"Test2\",\"TestM\",\"TestL2\",\"254324151\",\"tkk@gmail.com\",\"Kamulu\",\"business man\",\"Male\",\"Ladies Grp1\"]]
+    [collcount] => 8
+    [permission] => 
+)
+ Query: 1
+2018-10-10 15:11(32018Wed, 10 Oct 2018 15:11:17 +0300Wed, 10 Oct 2018 15:11:17 +030018)New Member  Array
+(
+    [groupid] => 2
+    [cell] => 
+    [jsondata] => [[\"Test\",\"Test\",\"TestL\",\"254752525\",\"tkivite@gmail.com\",\"Chokaa\",\"none\",\"Male\",\"Men Group 1\"],[\"Test2\",\"TestM\",\"TestL2\",\"254324151\",\"tkk@gmail.com\",\"Kamulu\",\"business man\",\"Male\",\"Ladies Grp1\"]]
+    [collcount] => 8
+    [permission] => 
+)
+ Query: 1
+2018-10-10 15:20(32018Wed, 10 Oct 2018 15:20:15 +0300Wed, 10 Oct 2018 15:20:15 +030018)New Record  Array
+(
+    [GroupName] => testgroup
+    [GroupType] => 4
+    [GroupLabel] => TG1
+    [cell] => 
+    [permission] => 
+)
+ Query: 1
+2018-10-10 15:20(32018Wed, 10 Oct 2018 15:20:42 +0300Wed, 10 Oct 2018 15:20:42 +030018)New Record  Array
+(
+    [GroupName] => TestG3
+    [GroupType] => 3
+    [GroupLabel] => TGHF
+    [cell] => 
+    [permission] => 
+)
+ Query: 1
+2018-10-10 17:37(32018Wed, 10 Oct 2018 17:37:32 +0300Wed, 10 Oct 2018 17:37:32 +030018)New Visitors  Array
+(
+    [cell] => 
+    [jsondata] => [[\"Visit1\",\"V1\",\"Visit1\",\"25466662324\",\"tkivite@gmail.com\",\"Ruai\",\"Farmer\",\"Male\",\"YES\",\"Just Visiting\",\"Was grateful\"],[\"Visi2\",\"V2\",\"Visit1\",\"25466662325\",\"tkivite@gmail.com\",\"Ruai\",\"Farmer\",\"Male\",\"YES\",\"Just Visiting\",\"Was grateful\"]]
+    [collcount] => 8
+    [permission] => 
+)
+ Query: 1
+2018-10-10 17:37(32018Wed, 10 Oct 2018 17:37:32 +0300Wed, 10 Oct 2018 17:37:32 +030018)New Visitors  Array
+(
+    [cell] => 
+    [jsondata] => [[\"Visit1\",\"V1\",\"Visit1\",\"25466662324\",\"tkivite@gmail.com\",\"Ruai\",\"Farmer\",\"Male\",\"YES\",\"Just Visiting\",\"Was grateful\"],[\"Visi2\",\"V2\",\"Visit1\",\"25466662325\",\"tkivite@gmail.com\",\"Ruai\",\"Farmer\",\"Male\",\"YES\",\"Just Visiting\",\"Was grateful\"]]
+    [collcount] => 8
+    [permission] => 
+)
+ Query: 1
+2018-10-10 17:47(32018Wed, 10 Oct 2018 17:47:59 +0300Wed, 10 Oct 2018 17:47:59 +030018)New Visitor  Array
+(
+    [FirstName] => Visit3
+    [MiddleName] => N
+    [LastName] => Visit3
+    [Mobile] => 254756454644
+    [Email] => tkivite@gmail.com
+    [Residence] => Utawala
+    [Occupation] => Never Mind
+    [Gender] => Male
+    [DOB] => 
+    [dateOfVisit] => 
+    [bornAgain] => NO
+    [visitorType] => Looking for Church
+    [notes] => Withheld ocupation
+    [cell] => 
+    [permission] => 
+)
+ Query: 1

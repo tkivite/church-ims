@@ -43,6 +43,8 @@ $id = is_numeric($_GET['id']) ? $_GET['id'] : 0;
 
 $sub_id = ($sub_id == "undefined" || !isset($sub_id)) ? 0 : $sub_id;
 
+$mode = isset($_GET['mode'])? $_GET['mode'] : 0;
+
 
 if (isset($_SESSION[myPage])) {
     if ($_SESSION[myPage] != $id) { //Clear SearchFilter and FilterArray as user has navigated away from page
@@ -102,7 +104,13 @@ switch ($id) {
         include('../../administration/view/memberView.php');
         //include('../../administration/php/userForm.php');
         } elseif ($sub_id == '1') {
-        include('../../administration/form/memberForm.php');
+            if ($mode == '2') {
+                include('../../excelbulk/bulkMembers.php');
+            } else if ($mode == '3') {
+                include('../../excelbulk/bulkGroupMembers.php');
+            } else {
+                include('../../administration/form/memberForm.php');
+            }
         }
         break;   
         
@@ -157,19 +165,23 @@ switch ($id) {
         // $current_page = "onboarding/list/userList.php"; //Grid loading page
         $current_page = "administration/list/visitorList.php";
         //$current_page = "onboarding/php/tables.html";
-        
-        if ($sub_id == '0') {
-            echo $current_page;
-        }
-        /*elseif ($sub_id == 'view') {    //Inner loading pages
-        include('../../administration/view/visitorView.php');
-      
-        } elseif ($sub_id == '1') {
-        include('../../administration/form/visitorForm.php');
-        }*/
-        break; 
-        
-     case 23:
+
+               if ($sub_id == '0') {
+                   echo $current_page;
+               }
+               elseif ($sub_id == 'view') {    //Inner loading pages
+                   include('../../administration/view/visitorView.php');
+                   //include('../../administration/php/userForm.php');
+               } elseif ($sub_id == '1') {
+                   if ($mode == '2') {
+                       include('../../excelbulk/bulkVisitors.php');
+                   } else {
+                       include('../../administration/form/visitorForm.php');
+                   }
+               }
+               break;
+
+    case 23:
         $current_page = "administration/list/groupTypes.php";
         if ($sub_id == '0') {
             echo $current_page;
@@ -266,7 +278,7 @@ switch ($id) {
 
     case 119:
         // $current_page = "onboarding/list/userList.php"; //Grid loading page
-        $current_page = "finance/list/transactionList.php";
+        $current_page = "finance/list/incomeList.php";
         //$current_page = "onboarding/php/tables.html";
 
         if ($sub_id == '0') {
@@ -276,14 +288,20 @@ switch ($id) {
             include('../../finance/view/transactionListView.php');
 
         } elseif ($sub_id == '1') {
-            include('../../finance/form/moneyin.php');
+            if($mode == '2'){
+                include('../../excelbulk/bulkIncome.php');
+
+        }
+           else  {
+               include('../../finance/form/moneyin.php');
+            }
         }
         break;
 
     case 118:
 
         // $current_page = "onboarding/list/userList.php"; //Grid loading page
-        $current_page = "finance/list/transactionList.php";
+        $current_page = "finance/list/expenseList.php";
         //$current_page = "onboarding/php/tables.html";
 
         if ($sub_id == '0') {
@@ -292,8 +310,17 @@ switch ($id) {
         elseif ($sub_id == 'view') {    //Inner loading pages
             include('../../finance/view/transactionListView.php');
 
-        } elseif ($sub_id == '1') {
-            include('../../finance/form/moneyout.php');
+        }
+        elseif ($sub_id == '1') {
+            if($mode == '2'){
+                include('../../excelbulk/bulkExpense.php');
+
+            }
+            else  {
+                include('../../finance/form/moneyout.php');
+            }
+
+
         }
         break;
 

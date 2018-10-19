@@ -1,0 +1,12 @@
+2018-09-01 19:04(62018Sat, 01 Sep 2018 19:04:50 +0300Sat, 01 Sep 2018 19:04:50 +030018)Member Update  Array
+(
+    [TransactionType] => 
+    [amount_0] => 
+    [channel_0] => 4
+    [TransactionTime] => 2018-12-12T12:12
+    [reference] => REF
+    [details] =>  REF
+    [cell] => 
+    [permission] => 
+)
+ Query: $TransactionType, $amount.'_'.$i, $channel.'_'.$i, $reference, $details, to_timestamp('" . $TimeOfTransaction . "',  'yyyy-mm-dd h-m-s')

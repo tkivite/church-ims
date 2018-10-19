@@ -1434,7 +1434,7 @@ function createSelect($name, $default, $query, $required, $selItem, $multiSelect
     } else
         $multiSelect = "";
 
-    $select = "<select name='" . $name . "[]' id='$name' class='$required $multiSelect form-control' $multiple>";
+    $select = "<select name='$name' id='$name' class='$required $multiSelect form-control' $multiple>";
     if ($default != '')#First option
         $select .= "<option value=''>$default</option>";
     #Get elements from Query

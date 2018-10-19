@@ -1,0 +1,135 @@
+2018-10-16 16:44(22018Tue, 16 Oct 2018 16:44:06 +0300Tue, 16 Oct 2018 16:44:06 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [party] => Main Service
+    [member] => 
+    [Channel] => 1
+    [Amount] => 30000
+    [TransactionTime] => 2018-05-05T00:12
+    [reference] => Main serivice
+    [details] => Family Sunday 
+    [cell] => 
+    [recordscount] => 
+    [permission] => 
+)
+ Query: 1
+2018-10-16 16:46(22018Tue, 16 Oct 2018 16:46:40 +0300Tue, 16 Oct 2018 16:46:40 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [party] => Main service
+    [member] => 
+    [Channel] => 1
+    [Amount] => 30000
+    [TransactionTime] => 2018-10-10T12:12
+    [reference] => Main service
+    [details] => Main service 
+    [cell] => 
+    [recordscount] => 
+    [permission] => 
+)
+ Query: 1
+2018-10-16 16:49(22018Tue, 16 Oct 2018 16:49:30 +0300Tue, 16 Oct 2018 16:49:30 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [party] => Main service
+    [member] => 
+    [Channel] => 1
+    [Amount] => 30000
+    [TransactionTime] => 2018-10-10T22:10
+    [reference] => ref
+    [details] =>  det
+    [cell] => 
+    [recordscount] => 
+    [permission] => 
+)
+ Query: 1
+2018-10-16 16:54(22018Tue, 16 Oct 2018 16:54:18 +0300Tue, 16 Oct 2018 16:54:18 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [party] => All
+    [member] => 
+    [Channel] => 1
+    [Amount] => 31000
+    [TransactionTime] => 2018-10-10T22:10
+    [reference] => ref
+    [details] => det 
+    [cell] => 
+    [recordscount] => 
+    [permission] => 
+)
+ Query: 1
+2018-10-16 16:55(22018Tue, 16 Oct 2018 16:55:47 +0300Tue, 16 Oct 2018 16:55:47 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [party] => All
+    [member] => 
+    [Channel] => 1
+    [Amount] => 31000
+    [TransactionTime] => 2018-10-10T22:10
+    [reference] => ref
+    [details] => det 
+    [cell] => 
+    [recordscount] => 
+    [permission] => 
+)
+ Query: 1
+2018-10-16 16:58(22018Tue, 16 Oct 2018 16:58:18 +0300Tue, 16 Oct 2018 16:58:18 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [party] => All
+    [member] => 
+    [Channel] => 1
+    [Amount] => 31100
+    [TransactionTime] => 2018-10-10T22:10
+    [reference] => Ref
+    [details] => Deta 
+    [cell] => 
+    [recordscount] => 
+    [permission] => 
+)
+ Query: 1
+2018-10-16 17:02(22018Tue, 16 Oct 2018 17:02:41 +0300Tue, 16 Oct 2018 17:02:41 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [party] => All
+    [member] => 
+    [Channel] => 1
+    [Amount] => 31100
+    [TransactionTime] => 2018-10-10T22:10
+    [reference] => Ref
+    [details] => Deta 
+    [cell] => 
+    [recordscount] => 
+    [permission] => 
+)
+ Query: 1
+2018-10-16 17:09(22018Tue, 16 Oct 2018 17:09:33 +0300Tue, 16 Oct 2018 17:09:33 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [party] => All
+    [member] => 
+    [Channel] => 1
+    [Amount] => 31100
+    [TransactionTime] => 2018-10-10T22:10
+    [reference] => Ref
+    [details] => Deta 
+    [cell] => 
+    [recordscount] => 
+    [permission] => 
+)
+ Query: 1
+2018-10-16 17:15(22018Tue, 16 Oct 2018 17:15:04 +0300Tue, 16 Oct 2018 17:15:04 +030018)New Transaction  Array
+(
+    [TransactionType] => 5
+    [party] => All
+    [member] => 
+    [Channel] => 1
+    [Amount] => 31100
+    [TransactionTime] => 2018-10-10T22:10
+    [reference] => Ref
+    [details] => Deta 
+    [cell] => 
+    [recordscount] => 
+    [permission] => 
+)
+ Query: 1
