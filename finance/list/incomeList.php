@@ -12,7 +12,7 @@ $query = "SELECT TransactionID as PRIMARY_KEY, (Select `TransactionType` From SR
    (Select ChannelName From SRC_PaymentChannels WHERE ChannelID = TransactionChannelID)Channel,
     (case When TransactionConfirmed = 0 then 'Not Confirmed' else 'Confirmed' end)Confirmed,(select concat(UserFirstName,' ', UserLastName) from SRC_users where UserID = CreatedBy)creator,
     (TimeCreated)Time_Recorded,(TimeOfTransaction)Time_Received  FROM SRC_Transactions  where TransactionTypeID in     
-    (Select TransactionTypeID From SRC_TransactionTypes where AccountID in (select AccountID from SRC_Accounts where Category ='Income'))";
+    (Select TransactionTypeID From SRC_TransactionTypes where AccountID in (select AccountID from SRC_Accounts where Category ='Income')) order by SRC_Transactions.TimeCreated DESC ";
 //echo $query;
 $_SESSION['sqlxls'] = $query;
 

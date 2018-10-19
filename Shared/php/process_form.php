@@ -377,19 +377,20 @@ if($FirstName != '' && $LastName != '' && $Mobile != ''){
                 $channel = $x[4];
                 $channel = execQuery("Select ChannelID From SRC_PaymentChannels where ChannelName = '$channel' ", true);
                 $Confirmed = $x[5];
-                $Notes = $x[6];
+                $Notes = $x[7];
+                $timestamp = date('Y-m-d H:i:s', strtotime($x[6]));
 
-               // echo $reference;
+                // echo $reference;
 
 
 
 
                 if ($amount > 0) {
 
-                    $sql = "insert into SRC_Transactions (TransactionMemberID,TransactionTypeID,TransactionAmount , TransactionChannelID,TransactionRef , TransactionDetails,CreatedBy ) 
-                                                  values(?,?,?,?,?,?,?)";
+                    $sql = "insert into SRC_Transactions (TransactionMemberID,TransactionTypeID,TransactionAmount , TransactionChannelID,TransactionRef , TransactionDetails,CreatedBy,TimeOfTransaction ) 
+                                                  values(?,?,?,?,?,?,?,?)";
                     $sql = $dblink->prepare($sql);
-                    $sql->bind_param("sssssss", $Member,$TransactionType, $amount, $channel, $reference, $Notes,$user);
+                    $sql->bind_param("ssssssss", $Member,$TransactionType, $amount, $channel, $reference, $Notes,$user,$timestamp);
                     $sql->execute();
                     $countx += 1;
                   // LogInFile("New Transaction", $_POST, $sql->error);
@@ -427,7 +428,8 @@ if($FirstName != '' && $LastName != '' && $Mobile != ''){
             $channel = $x[4];
             $channel = execQuery("Select ChannelID From SRC_PaymentChannels where ChannelName = '$channel' ", true);
             $Confirmed = $x[5];
-            $Notes = $x[6];
+            $Notes = $x[7];
+            $timestamp = date('Y-m-d H:i:s', strtotime($x[6]));
 
             // echo $reference;
 
@@ -436,10 +438,10 @@ if($FirstName != '' && $LastName != '' && $Mobile != ''){
 
             if ($amount > 0) {
 
-                $sql = "insert into SRC_Transactions (TransactionMemberID,TransactionTypeID,TransactionAmount , TransactionChannelID,TransactionRef , TransactionDetails, CreatedBy ) 
-                                                  values(?,?,?,?,?,?,?)";
+                $sql = "insert into SRC_Transactions (TransactionMemberID,TransactionTypeID,TransactionAmount , TransactionChannelID,TransactionRef , TransactionDetails, CreatedBy,TimeOfTransaction ) 
+                                                  values(?,?,?,?,?,?,?,?)";
                 $sql = $dblink->prepare($sql);
-                $sql->bind_param("sssssss", $Member,$TransactionType, $amount, $channel, $reference, $Notes,$user);
+                $sql->bind_param("ssssssss", $Member,$TransactionType, $amount, $channel, $reference, $Notes,$user,$timestamp);
                 $sql->execute();
                 // LogInFile("New Transaction", $_POST, $sql->error);
             }
