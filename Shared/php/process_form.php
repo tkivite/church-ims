@@ -454,6 +454,48 @@ if($FirstName != '' && $LastName != '' && $Mobile != ''){
 
         break;
 
+    case "PROJECT":
+        if ($_POST['cell'] != '') {
+            $sql = "update SRC_Projects set ProjectName=?, Description=?, Target=? where ProjectTID = ? ";
+            $sql = $dblink->prepare($sql);
+            $sql->bind_param("ssss", $name, $description,$target, $cell);
+            $sql->execute();
+            LogInFile("Record Update", $_POST, $sql);
+
+            $_SESSION[notes] = "Project Updated Successfully";
+        } else {
+            $sql = "insert into SRC_Projects (ProjectName,Description,Target) values(?,?,?)";
+            $sql = $dblink->prepare($sql);
+            $sql->bind_param("sss", $name, $description,$target);
+            $sql->execute();
+            LogInFile("New Record", $_POST, $sql);
+            // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
+
+            $_SESSION[notes] = "Project Created Successfully";
+        }
+        break;
+
+    case "PROJECTIN":
+        if ($_POST['cell'] != '') {
+            $sql = "update SRC_Projects set ProjectName=?, Description=?, Target=? where ProjectTID = ? ";
+            $sql = $dblink->prepare($sql);
+            $sql->bind_param("ssss", $name, $description,$target, $cell);
+            $sql->execute();
+            LogInFile("Record Update", $_POST, $sql);
+
+            $_SESSION[notes] = "Project Updated Successfully";
+        } else {
+            $sql = "insert into SRC_Projects (ProjectName,Description,Target) values(?,?,?)";
+            $sql = $dblink->prepare($sql);
+            $sql->bind_param("sss", $name, $description,$target);
+            $sql->execute();
+            LogInFile("New Record", $_POST, $sql);
+            // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
+
+            $_SESSION[notes] = "Project Created Successfully";
+        }
+        break;
+
 
 }
 
