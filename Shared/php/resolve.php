@@ -324,6 +324,50 @@ switch ($id) {
         }
         break;
 
+    case 163:
+
+        // $current_page = "onboarding/list/userList.php"; //Grid loading page
+        $current_page = "finance/list/project.php";
+        //$current_page = "onboarding/php/tables.html";
+
+        if ($sub_id == '0') {
+            echo $current_page;
+        }
+        elseif ($sub_id == 'view') {    //Inner loading pages
+            include('../../finance/view/project.php');
+
+        }
+        elseif ($sub_id == '1') {
+
+                include('../../finance/form/project.php');
+            }
+
+
+
+        break;
+
+    case 161:
+
+        // $current_page = "onboarding/list/userList.php"; //Grid loading page
+        $current_page = "finance/list/projectin.php";
+        //$current_page = "onboarding/php/tables.html";
+
+        if ($sub_id == '0') {
+            echo $current_page;
+        }
+        elseif ($sub_id == 'view') {    //Inner loading pages
+            include('../../finance/view/projectin.php');
+
+        }
+        elseif ($sub_id == '1') {
+
+            include('../../finance/form/projectin.php');
+        }
+
+
+
+        break;
+
 
 
     default:
