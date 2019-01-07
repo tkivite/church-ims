@@ -24,7 +24,7 @@ $(document).ready(function () {
     // console.log(selectedPage);
     if (selectedTab) {
 
-        if (selectedTab == "#dashboard" || selectedTab == "dashboard") {
+        if (selectedTab == "#dashboard" || selectedTab == "dashboard" || typeof selectedTab == "undefined" || selectedTab == null) {
 
             $("section#dashboardContent.content").fadeOut('slow');
 
@@ -65,7 +65,7 @@ $(document).ready(function () {
 
             $('.nav-tabs a[href=' + selectedTab + ']').tab('show');
 
-            if (selectedPage != "undefined" && selectedPage != "" && selectedPage != null) {
+            if (typeof selectedPage != "undefined" && selectedPage != "" && selectedPage != null) {
 
                 $.ajax({
                     type: 'get',
@@ -90,7 +90,7 @@ $(document).ready(function () {
 
 
 
-                // console.log('fetching: /church-ims-test/tabs/' + theUrl + '.php');
+                // console.log('fetching: /cmis/tabs/' + theUrl + '.php');
 
                 $.blockUI({
                     css: {
@@ -106,7 +106,7 @@ $(document).ready(function () {
 
                 $.ajax({
                     type: 'get',
-                    url: '/church-ims-test/tabs/' + theUrl + '.php',
+                    url: '/cmis/tabs/' + theUrl + '.php',
 
                     success: function (result) {
                         // console.log("Appending: " + selectedTab);
@@ -120,7 +120,8 @@ $(document).ready(function () {
                     },
                     complete: function () {
                         $('.blockUI').remove();
-                    }
+                    },
+                    timeout: 5000
                 });
                 //$("div#dynamicWrapper.content-wrapper").show();
                 //$(".content").fadeOut('slow');
@@ -555,11 +556,20 @@ $(document).ready(function () {
 
 function loadtabDefault(wrapperId) {
 
-    var theUrl = wrapperId.substring(1);
+
+    if(wrapperId && typeof wrapperId !== 'undefined') {
+        var theUrl = wrapperId.substring(1);
+        theUrl = '/cmis/tabs/' + theUrl + '.php';
+    }
+
+    else
+    {
+        theUrl = '/cmis/dashboard.php'
+    }
     // console.log("removing content from: " + wrapperId);
     $("#dynamicContent").remove();
 
-    // console.log('fetching: /church-ims-test/tabs/' + theUrl + '.php');
+    // console.log('fetching: /cmis/tabs/' + theUrl + '.php');
 
     $.blockUI({
         css: {
@@ -575,18 +585,18 @@ function loadtabDefault(wrapperId) {
 
     $.ajax({
         type: 'get',
-        url: '/church-ims-test/tabs/' + theUrl + '.php',
+        url: theUrl,
 
         success: function (result) {
             // console.log("Appending: " + wrapperId);
-
             $("div" + wrapperId + ".content-wrapper").append(result);
             $("section#dynamicContent.content").fadeIn('slow');
 
         },
         complete: function () {
             $('.blockUI').remove();
-        }
+        },
+        timeout: 5000
     });
 
 
@@ -765,7 +775,9 @@ $(document).on('click', '.mymenutabs', function (e) {
         }
     });
 
-    if (wrapperId == '#dashboard') {
+    console.log(wrapperId);
+
+    if (wrapperId == '#dashboard' || typeof wrapperId === 'undefined' || wrapperId === null) {
 
         $.ajax({
             type: 'GET',
@@ -773,13 +785,10 @@ $(document).on('click', '.mymenutabs', function (e) {
             success: function (msg) {
                 // console.log('dashbordContent');
                 //$("div#dashboardContent.content").remove($("section#dashboardContent.content"));
-                $("div#dashboard.content-wrapper").remove($("section#dashboardContent.content"));
+              //  $("div#dashboard.content-wrapper").remove($("section#dashboardContent.content"));
                 //$("div#dashboard.content-wrapper").remove($("section#dashboardContent.content"));
-
-
                 //$("section#dashboardContent.content").html(msg).fadeIn('slow');
                 //content-wrapper
-
 
             },
             complete: function () {
@@ -790,6 +799,8 @@ $(document).on('click', '.mymenutabs', function (e) {
 
         //console.log("Loading tab2 ");
     } else {
+
+
         var theUrl = wrapperId.substring(1);
 
 
@@ -811,7 +822,7 @@ $(document).on('click', '.mymenutabs', function (e) {
         loadtabDefault(wrapperId);
         /*   $.ajax({
                type: 'get',
-               url: '/church-ims-test/tabs/' + theUrl + '.php',
+               url: '/cmis/tabs/' + theUrl + '.php',
 
                success: function (result) {
                    $("div" + wrapperId + ".content-wrapper").append(result);
@@ -1276,7 +1287,7 @@ $(document).on('click', 'td.acct-details-control', function () {
 
         $.ajax({
             type: 'get',
-            url: '../../church-ims-test/Shared/php/resolve.php',
+            url: '../../cmis/Shared/php/resolve.php',
             data: 'key=' + d + '&sid=' + subid + '&id=' + page_id,
             success: function (result) {
                 console.log('key=' + d + '&sid=' + subid + '&id=' + page_id);
@@ -1315,7 +1326,7 @@ $(document).on('click', 'td.details-control', function () {
 
         $.ajax({
             type: 'get',
-            url: '../../church-ims-test/Shared/php/resolve.php',
+            url: '../../cmis/Shared/php/resolve.php',
             data: 'key=' + d + '&sid=' + subid + '&id=' + page_id,
             success: function (result) {
                 console.log('key=' + d + '&sid=' + subid + '&id=' + $('#page_id').val());
@@ -1358,7 +1369,7 @@ $(document).on('click', 'button.details-control', function () {
 
         $.ajax({
             type: 'get',
-            url: '../../church-ims-test/Shared/php/resolve.php',
+            url: '../../cmis/Shared/php/resolve.php',
             data: 'key=' + d + '&sid=' + subid + '&id=' + page_id,
             success: function (result) {
                 // console.log(result);

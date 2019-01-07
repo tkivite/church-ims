@@ -5,7 +5,9 @@ include("../../Shared/php/functions.php");
 $_SESSION[page_size]=isset($page_size)? $page_size : 100;
 $searchFilter = '';
 
-$query = "SELECT ProjectTID as primarykey, ProjectName,Description,StartDate,Target,(select sum(Amount) from SRC_ProjectTransactions Where ProjectTID =ProjectTID and TransactionType ='INCOME')INCOME , (select sum(Amount) from SRC_ProjectTransactions Where ProjectTID =ProjectTID and TransactionType ='EXPENSE')EXPENSE FROM SRC_Projects" ;
+$query = "SELECT ProjectID as primarykey, ProjectName,Description,StartDate,Target,(select sum(Amount) from cmis2018.SRC_ProjectTransactions Where SRC_ProjectTransactions.ProjectID =SRC_Projects.ProjectID and TransactionType ='INCOME')INCOME , 
+(select sum(Amount) from cmis2018.SRC_ProjectTransactions Where SRC_ProjectTransactions.ProjectID =SRC_Projects.ProjectID and TransactionType ='EXPENSE')EXPENSE 
+FROM cmis2018.SRC_Projects" ;
 
 $_SESSION['sqlxls'] = $query;
 $target_page = $_SESSION['targetpage'];
@@ -15,6 +17,6 @@ $actionsBar .='<button type="button" value ="New Project" name="addButton" class
 $actionsBar .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 $actionsBar .= '</div>';
 
-$res = generateGrid("Events", "view", $query, true, true, true, false, false, $pagination,$actionsBar,array("search","status","date"));
+$res = generateGrid("Projects", "view", $query, true, true, true, false, false, $pagination,$actionsBar,array("search","status","date"));
 
 echo $res;

@@ -17,18 +17,21 @@ GLOBAL $dblink;
 $title = "New Transaction";
 $cell  = $_GET['cell'];
 if (isset($_GET[cell])) {
-    $sql                  = " SELECT TransactionID as PRIMARY_KEY, TransactionDetails,TransactionAmount,CreatedBy,TransactionConfirmed,TimeCreated,TimeOfTransaction,TransactionChannelID,TransactionAmount,TransactionMemberID  FROM SRC_Transactions WHERE  TransactionID = '" . $_GET[cell] . "'";
+    $sql                  = " SELECT ProjectTID as primarykey, ProjectID,
+                              (select ProjectName from SRC_Projects WHERE SRC_Projects.ProjectID = SRC_ProjectTransactions.ProjectID)Project,
+                              Amount,TransactionType,TransactingParty,Description,Channel,TimeofTransaction,createdBy 
+                              from SRC_ProjectTransactions where TransactionType ='INCOME' AND ProjectID = '" . $_GET[cell] . "'";
     $result               = $dblink->query($sql);
     $row                  = mysqli_fetch_array($result);
-    $transactionType      = $row[1];
-    $transactionAmount    = $row[2];
-    $createdBy            = $row[3];
-    $transactionConfirmed = $row[4];
-    $timeCreated          = $row[5];
-    $timeOfTransaction    = $row[6];
+    $projectId            = $row[1];
+    $project              = $row[2];
+    $transactionAmount    = $row[3];
+    $transactionType      = $row[4];
+    $party                = $row[5];
+    $description          = $row[6];
     $channel              = $row[7];
-    $amount               = $row[8];
-    $member               = $row[9];
+    $timeOfTransaction    = $row[8];
+
 
     $title = "Edit Transaction";
 }
@@ -45,16 +48,27 @@ echo $title;
                              <div class="box-body">
 
 
-<form name="moneyin" role="form" method="POST" title="" class="form-horizontal" enctype="multipart/form-data" style="display: block;">
+<form name="projectin" role="form" method="POST" title="" class="form-horizontal" enctype="multipart/form-data" style="display: block;">
 
 
     <div class="form-group">
         <label class="control-label col-sm-2" for="name">Transaction Type:</label>
         <div class="col-sm-10">
-            <?php $query = 'Select TransactionTypeID,`TransactionType` From SRC_TransactionTypes where AccountID in (select AccountID from SRC_Accounts where Category =\'Income\') ';
+          <select name="transactiontype" id="transactiontype">
+              <option value="INCOME">INCOME</option>
+              <option value="EXPENSE">EXPENSE</option>
+          </select>
 
-             $select = createSelect('TransactionType','SelectTransactionType',$query,true,$transactionType);
-             echo  $select;
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="name">Project:</label>
+        <div class="col-sm-10">
+            <?php $query = 'Select ProjectID, ProjectName From SRC_Projects';
+
+            $select = createSelect('project','SelectProject',$query,true,$projectId);
+            echo  $select;
             ?>
 
         </div>
@@ -66,18 +80,22 @@ echo $title;
 
 
             <input type="text" name="party" id="party" class="form-control required" value="<?php
-            echo $member;
+            echo $party;
             ?>" maxlength="255" placeholder="Received from (Name and Phone)">
 
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="name">Member:</label>
-        <div class="col-sm-10">
-            <?php $query = 'select MemberID,concat(FirstName,\' \',MiddleName,\' \',LastName)Member from SRC_Members order by 2 asc';
 
-            $select = createSelect('member','Not Applicable',$query,true,$member);
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="name">Group (Where applicable):</label>
+        <div class="col-sm-10">
+
+
+            <?php $query = 'Select GroupID ,GroupName, `GroupTypeID`, `GroupLabel` from SRC_Groups order by GroupName Asc';
+
+            $select = createSelect('group','Select Group',$query,true,$group);
             echo  $select;
             ?>
 
@@ -88,7 +106,7 @@ echo $title;
         <div class="col-sm-10">
             <?php $query = 'Select ChannelID,ChannelName From SRC_PaymentChannels  order by ChannelID Asc';
 
-            $select = createSelect('Channel','Select Channel',$query,true,$channel);
+            $select = createSelect('channel','Select Channel',$query,true,$channel);
             echo  $select;
             ?>
 
@@ -98,7 +116,7 @@ echo $title;
     <div class="form-group" >
         <label class="control-label col-sm-2" for="DOB">Amount:</label>
         <div class="col-sm-10">
-            <input type="money" name="Amount" id="Amount" class="form-control required" value="<?php
+            <input type="money" name="amount" id="amount" class="form-control required" value="<?php
             echo $amount
             ?>" maxlength="255" placeholder="enter amount">
 
@@ -108,7 +126,7 @@ echo $title;
     <div class="form-group" >
         <label class="control-label col-sm-2" for="DOB">Time of transaction:</label>
         <div class="col-sm-10">
-            <input type="datetime-local" name="TransactionTime" id="TransactionTime" class="form-control required" value="<?php
+            <input type="datetime-local" name="transactiontime" id="transactiontime" class="form-control required" value="<?php
             echo $timeOfTransaction
             ?>" maxlength="255" placeholder="enter time of transaction">
 
@@ -128,9 +146,9 @@ echo $title;
     <div class="form-group" >
         <label class="control-label col-sm-2" for="DOB">Details:</label>
         <div class="col-sm-10">
-            <textarea name="details" id="details" class="form-control required" placeholder="enter details">
+            <textarea name="description" id="description" class="form-control required" placeholder="enter details">
             <?php
-                echo $details
+                echo $description
                 ?></textarea>
         </div>
     </div>

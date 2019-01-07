@@ -47,7 +47,7 @@ $(document).on('click', '.gridResetPasswordButton', function () {
         });
         $.ajax({
             type: 'post',
-            url: '../../church-ims-test/Shared/php/process_form.php?f=' + formname + '&action=resetpassword',
+            url: '../../cmis/Shared/php/process_form.php?f=' + formname + '&action=resetpassword',
 
             data: $("[name='" + formname + "']").serialize(),
             success: function (result) {
@@ -129,7 +129,7 @@ $(document).on('click', '.resolveBizCustomer', function () {
     $('.box').fadeOut();
 
 
-    // url: '../../church-ims-test/Shared/php/resolve.php',
+    // url: '../../cmis/Shared/php/resolve.php',
 
 
     $.ajax({
@@ -183,7 +183,7 @@ $(document).on('click', '.gridEditCustomerdetails', function () {
     $('.box').fadeOut();
 
 
-    // url: '../../church-ims-test/Shared/php/resolve.php',
+    // url: '../../cmis/Shared/php/resolve.php',
 
 
     $.ajax({
@@ -274,7 +274,7 @@ $(document).on('click', '.gridDeleteButton', function () {
         });
         $.ajax({
             type: 'post',
-            url: '../../church-ims-test/Shared/php/process_form.php?f=' + formname + '&action=delete',
+            url: '../../cmis/Shared/php/process_form.php?f=' + formname + '&action=delete',
             data: $("[name='" + formname + "']").serialize(),
             success: function (result) {
                 // alert('done');
@@ -301,7 +301,7 @@ $(document).on('click', '.gridCustomDelete', function () {
     console.log("Table " + table_name);
     console.log("Column " + column);
 
-    console.log('../../church-ims-test/Shared/php/process_form.php?f=custom_delete&table_name=' + table_name + '&cell=' + cell_id + '&column=' + column);
+    console.log('../../cmis/Shared/php/process_form.php?f=custom_delete&table_name=' + table_name + '&cell=' + cell_id + '&column=' + column);
 
     var deleteItem = confirm("Are you sure you want to delete?");
     if (deleteItem) {
@@ -324,7 +324,7 @@ $(document).on('click', '.gridCustomDelete', function () {
         });
         $.ajax({
             type: 'post',
-            url: '../../church-ims-test/Shared/php/process_form.php?f=custom_delete&table_name=' + table_name + '&cell=' + cell_id + '&column=' + column,
+            url: '../../cmis/Shared/php/process_form.php?f=custom_delete&table_name=' + table_name + '&cell=' + cell_id + '&column=' + column,
             // data: $("[name='" + formname + "']").serialize(),
             success: function (result) {
                 console.log("Checki: " + result);
@@ -365,7 +365,7 @@ $(document).on('click', '.gridResendButton', function () {
         });
         $.ajax({
             type: 'post',
-            url: '../../church-ims-test/Shared/php/process_form.php?f=' + formname + '&action=resend',
+            url: '../../cmis/Shared/php/process_form.php?f=' + formname + '&action=resend',
             data: $("[name='" + formname + "']").serialize(),
             success: function (result) {
                 // alert('done');
@@ -409,7 +409,7 @@ $(document).on('click', ".gridPinResetButton", function () {
         });
         $.ajax({
             type: 'post',
-            url: '../../church-ims-test/Shared/php/process_form.php?f=' + formname + '&action=resetpin&cell_id=' + cell_id,
+            url: '../../cmis/Shared/php/process_form.php?f=' + formname + '&action=resetpin&cell_id=' + cell_id,
             data: $("[name='" + formname + "']").serialize(),
             success: function (result) {
                 //alert(result);
@@ -449,7 +449,7 @@ $(document).on('click', ".gridChangePasswordButton", function () {
         });
         $.ajax({
             type: 'post',
-            url: '../../church-ims-test/Shared/php/process_form.php?f=' + formname + '&action=resetpassword&cell_id=' + cell_id,
+            url: '../../cmis/Shared/php/process_form.php?f=' + formname + '&action=resetpassword&cell_id=' + cell_id,
             data: $("[name='" + formname + "']").serialize(),
             success: function (result) {
 
@@ -654,7 +654,7 @@ $(document).on('click', "#action,[name='action']", function (e) {
 
                     $.ajax({
                         type: 'GET',
-                        url: '/church-ims-test/onboarding/form/productTabs/reviewProductConfig.php',
+                        url: '/cmis/onboarding/form/productTabs/reviewProductConfig.php',
                         success: function (response) {
                             console.log("loading");
 

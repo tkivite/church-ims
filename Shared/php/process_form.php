@@ -485,14 +485,46 @@ if($FirstName != '' && $LastName != '' && $Mobile != ''){
 
             $_SESSION[notes] = "Project Updated Successfully";
         } else {
-            $sql = "insert into SRC_Projects (ProjectName,Description,Target) values(?,?,?)";
+            $user = $_SESSION['user_id'];
+            // $date =  $_POST['date'];
+            $timestamp = date('Y-m-d H:i:s', strtotime($transactiontime));
+            $member = ((isset($member)) && ($member != null) && ($member != '')  ) ? $member : 0;
+            // $timestamp = iso8601_to_timestamp('" . $TimeOfTransaction . "',  'yyyy-mm-dd h-m-s');
+            $sql = "insert into SRC_ProjectTransactions (TransactionType,TimeofTransaction,TransactingParty,Amount,Description,Channel,Reference,ProjectID,createdBy,Group) 
+                                                  values(?,?,?,?,?,?,?,?,?,?)";
             $sql = $dblink->prepare($sql);
-            $sql->bind_param("sss", $name, $description,$target);
+            $sql->bind_param("ssssssssss", $transactiontype, $timestamp,$party,$amount, $description,$channel, $reference, $project,$user,$group);
             $sql->execute();
-            LogInFile("New Record", $_POST, $sql);
             // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
+            $_SESSION[notes] = "Transaction Posted Successfully $transactiontype, $timestamp,$party,$amount, $description,$channel, $reference, $project,$user,$group";
 
-            $_SESSION[notes] = "Project Created Successfully";
+        }
+        break;
+
+    case "PROJECTOUT":
+
+        if ($_POST['cell'] != '') {
+            $sql = "update SRC_Projects set ProjectName=?, Description=?, Target=? where ProjectTID = ? ";
+            $sql = $dblink->prepare($sql);
+            $sql->bind_param("ssss", $name, $description,$target, $cell);
+            $sql->execute();
+            LogInFile("Record Update", $_POST, $sql);
+
+            $_SESSION[notes] = "Project Updated Successfully";
+        } else {
+            $user = $_SESSION['user_id'];
+            // $date =  $_POST['date'];
+            $timestamp = date('Y-m-d H:i:s', strtotime($transactiontime));
+            $member = ((isset($member)) && ($member != null) && ($member != '')  ) ? $member : 0;
+            // $timestamp = iso8601_to_timestamp('" . $TimeOfTransaction . "',  'yyyy-mm-dd h-m-s');
+            $sql = "insert into SRC_ProjectTransactions (TransactionType,TimeofTransaction,TransactingParty,Amount,Description,Channel,Reference,ProjectID,createdBy) 
+                                                  values(?,?,?,?,?,?,?,?,?)";
+            $sql = $dblink->prepare($sql);
+            $sql->bind_param("sssssssss", $transactiontype, $timestamp,$party,$amount, $description,$channel, $reference, $project,$user);
+            $sql->execute();
+            // auditAction("Ticket Creation", "Created Ticket $id ", $_SERVER[REMOTE_ADDR], $postdata);
+            $_SESSION[notes] = "Transaction Posted Successfully $transactiontype, $timestamp,$party,$amount, $description,$channel, $reference, $project,$user";
+
         }
         break;
 

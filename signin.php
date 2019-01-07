@@ -65,7 +65,7 @@ if (isset($_POST["action"])) // Trigger
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>TICKET MANAGEMENT | SYSTEM</title>
+    <title>ChurchMIS | SYSTEM</title>
 
 <link rel="stylesheet" href="frontend-template/bootstrap/css/bootstrap.min.css">
      <link rel="stylesheet" href="Shared/css/nicsasa.css">
@@ -81,9 +81,18 @@ if (isset($_POST["action"])) // Trigger
 
     <link rel="stylesheet" href="frontend-template/plugins/datatables/dataTables.bootstrap.css"> 
     <!-- iCheck -->
-  
 
 
+<style>
+    .panel-default>.panel-heading {
+        color: white;
+        background-color: #0d98ba;
+        border-color: #0d98ba;
+        font-size: 40px;
+        font-weight: 700;
+        text-align: center;
+    }
+    </style>
 </head>
 
 <body>
@@ -91,10 +100,12 @@ if (isset($_POST["action"])) // Trigger
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
+                <div class="login-panel panel panel-default" style="border-color: #0d98ba;">
                     <div class="panel-heading" con>
-                        <img src="Shared/css/images/User_Avatar-512.png"  width="50%" height="50%"  alt="Login Image">
-                        
+                       <!-- <img src="Shared/css/images/User_Avatar-512.png"  width="50%" height="50%"  alt="Login Image">
+                        -->
+
+                        <img src="Shared/css/images/ccilogo-new.png"  width="15%" height="15%"  alt="Login Image"> ChurchMIS
                        
               
                     </div>
